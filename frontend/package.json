@@ -1,5 +1,6 @@
 {
   "name": "visualplanner",
+  "version": "0.0.1",
   "title": "Visual Planner",
   "engines": {
     "node": ">= 0.10.0"
