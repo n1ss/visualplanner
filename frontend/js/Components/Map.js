@@ -1,5 +1,6 @@
-$(function(){
-  var canv = $("#plan-view");
+$(function () {
+  var canv = $("#plan-view"),
+    paper = Raphael("plan-view", canv.width(), 800);
 
   Raphael.fn.connection = function (obj1, obj2, line, bg) {
     if (obj1.line && obj1.from && obj1.to) {
@@ -9,14 +10,16 @@ $(function(){
     }
     var bb1 = obj1.getBBox(),
       bb2 = obj2.getBBox(),
-      p = [{x: bb1.x + bb1.width / 2, y: bb1.y - 1},
+      p = [
+        {x: bb1.x + bb1.width / 2, y: bb1.y - 1},
         {x: bb1.x + bb1.width / 2, y: bb1.y + bb1.height + 1},
         {x: bb1.x - 1, y: bb1.y + bb1.height / 2},
         {x: bb1.x + bb1.width + 1, y: bb1.y + bb1.height / 2},
         {x: bb2.x + bb2.width / 2, y: bb2.y - 1},
         {x: bb2.x + bb2.width / 2, y: bb2.y + bb2.height + 1},
         {x: bb2.x - 1, y: bb2.y + bb2.height / 2},
-        {x: bb2.x + bb2.width + 1, y: bb2.y + bb2.height / 2}],
+        {x: bb2.x + bb2.width + 1, y: bb2.y + bb2.height / 2}
+      ],
       d = {}, dis = [];
     for (var i = 0; i < 4; i++) {
       for (var j = 4; j < 8; j++) {
@@ -67,26 +70,29 @@ $(function(){
       var att = this.type == "rect" ? {x: this.ox + dx, y: this.oy + dy} : {cx: this.ox + dx, cy: this.oy + dy};
       this.attr(att);
       for (var i = connections.length; i--;) {
-        r.connection(connections[i]);
+        paper.connection(connections[i]);
       }
-      r.safari();
+      paper.safari();
     },
     up = function () {
       this.animate({"fill-opacity": 1}, 500);
     },
-    r = Raphael("plan-view", canv.width(), 800),
     connections = [],
-    shapes = [  r.rect(300, 100, 180, 30, 5),
-      r.rect(300, 200, 180, 30, 5),
-      r.rect(100, 300, 180, 30, 5),
-      r.rect(500, 300, 180, 30, 5),
-    ];
-  for (var i = 0, ii = shapes.length; i < ii; i++) {
-    var color = Raphael.getColor();
-    shapes[i].attr({fill: "#1ABC9C", "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
-    shapes[i].drag(move, dragger, up);
-  }
-  connections.push(r.connection(shapes[0], shapes[1], "#34495E"));
-  connections.push(r.connection(shapes[1], shapes[2], "#34495E"));
-  connections.push(r.connection(shapes[1], shapes[3], "#34495E"));
+    shapes = [];
+
+  var Milestone = function(x, y){
+    return paper.rect(x, y, 180, 30, 5).attr({fill: "#1ABC9C", "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
+  };
+
+  $("#add-milestone").click(function(e){
+    e.preventDefault();
+
+    shapes.push(new Milestone(100, 100).drag(move, dragger, up))
+  });
+
+
+//
+//  connections.push(paper.connection(shapes[0], shapes[1], "#34495E"));
+//  connections.push(paper.connection(shapes[1], shapes[2], "#34495E"));
+//  connections.push(paper.connection(shapes[1], shapes[3], "#34495E"));
 });
