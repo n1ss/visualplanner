@@ -7,15 +7,17 @@ define([
   'underscore',
   'tmpl',
 
+  'Models/User',
+
   'Classes/Form',
   'Classes/Network',
 
   'Views/Base/View'
 
-], function(App, Backbone, _, tmpl, Form) {
+], function(App, Backbone, _, tmpl, User, Form) {
   var Login = App.Views.BaseView.extend({
 
-	el: '.fn-user-side',
+    el: '.fn-user-side',
 
     events: {
       'submit .fn-login-form': 'login'
@@ -38,13 +40,13 @@ define([
 
       if (form.checkValid()) {
         App.Network.send({
-          url: '/user/login',
+          url: '/api/user/login',
           data: form.data,
           type: 'post',
           context: this,
           success: function(data) {
             if (data.status) {
-              alert('login success!');
+              User.trigger('logged', data.user);
             } else {
               var error = $('<p>').html(data.message);
               this.$('.messages').addClass('error').html(error);
