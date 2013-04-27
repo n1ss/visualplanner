@@ -11,4 +11,4 @@ exports.index = function(req, res) {
   	user: req.user,
   	env: process.env.NODE_ENV
   });
-}
+};
