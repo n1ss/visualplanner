@@ -17,19 +17,20 @@ define([
     },
 
     initialize: function() {
-      var plans = new App.Collections.Plans(),
-          plan = this;
-
-      plans.fetch({
-        success: function(data) {
-          console.log(data.toJSON());
-          plan.$el.html(tmpl.render('User/Plans', data.toJSON()));
-        }
-      });
+      this.$el.html(tmpl.render('User/Plans'));
     },
 
     render: function() {
-      this.$el.html(tmpl.render('User/Plans'));
+      var plans = new App.Collections.Plans(),
+          plansView = this;
+
+      plans.fetch({
+        success: function(data) {
+          _.each(data.toJSON(), function(plan) {
+            plansView.$('.fn-plans').append(tmpl.render('User/PlanItem', plan));
+          });
+        }
+      });
 
       return this;
     },
@@ -45,7 +46,8 @@ define([
 
       plan.save();
 
-      this.$('.fn-plans').append('<li><a "plan-content" href="plan/" data-type="app-link">' + plan.get('name') + '</a></li>')
+      this.$('#plan-name').val('');
+      this.$('.fn-plans').append(tmpl.render('User/PlanItem', plan.toJSON()));
     }
   });
 

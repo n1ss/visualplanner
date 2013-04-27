@@ -27,8 +27,6 @@ define([
 
     indexAction: function() {
       var view = new App.Views.Home.Subscribe();
-
-      App.content.html(view.render().el);
     },
 
     registerAction: function() {

@@ -55,14 +55,12 @@ require([
 
   Backbone.history.start({pushState: true});
 
-  // User.done(function() {
-  //   App.openPage('/plans', true);
-  // }).on({
-  //   logged: function() {
-  //     App.openPage('/plans', true);
-  //   },
-  //   logout: function() {
-  //     App.openPage('/', true);
-  //   }
-  // }, this);
+  User.on({
+    logged: function() {
+      App.openPage('/plans', true);
+    },
+    logout: function() {
+      App.openPage('/', true);
+    }
+  }, this);
 });

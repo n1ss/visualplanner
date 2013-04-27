@@ -81,14 +81,14 @@ $(function () {
     shapes = [];
 
   var Milestone = function (x, y) {
-    return paper.rect(x, y, 180, 30, 5).attr({fill: "#1ABC9C", "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
+    return paper.rect(x, y, 180, 30, 5).attr({fill: "#2ECC71", "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
   };
 
   $("#add-milestone").click(function (e) {
     e.preventDefault();
 
     if (shapes.length > 1) {
-      paper.connection(shapes[shapes.length - 1], shapes[shapes.length - 2], "#34495E");
+      connections.push(paper.connection(shapes[shapes.length - 1], shapes[shapes.length - 2], "#34495E"));
     }
     shapes.push(new Milestone(100, 100).drag(move, dragger, up));
 

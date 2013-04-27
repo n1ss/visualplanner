@@ -9,9 +9,11 @@ define([
 
   'Classes/Form',
 
+  'Models/User',
+
   'Views/Base/View'
 
-], function(App, Backbone, _, tmpl, Form) {
+], function(App, Backbone, _, tmpl, Form, User) {
   var Subscribe = App.Views.BaseView.extend({
 
     events: {
@@ -19,6 +21,13 @@ define([
     },
 
     initialize: function() {
+      if (User.id) {
+        App.openPage('/plans', true);
+
+        return;
+      }
+
+      App.content.html(this.render().el);
     },
 
     render: function() {
