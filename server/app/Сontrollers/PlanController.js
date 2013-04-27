@@ -40,7 +40,18 @@ exports.userPlans = function(req, res) {
         }, function(err, userPlans) {
             if (err) return res.json(500, err);
 
-            return res.json(userPlans);
+            var planIds = [];
+
+            for(var i in userPlans) {
+                planIds.push(userPlans[i].plan);
+            }
+
+            Plan
+                .find({_id: {$in: planIds}}, function(err, plans) {
+                    if (err) return res.json(500, err);
+
+                    return res.json(plans);
+                });
         });
 }
 
