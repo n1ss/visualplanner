@@ -11,6 +11,8 @@ define([
 ], function(App, Backbone, _) {
   var Plans = Backbone.Collection.extend({
 
+    idAttribute: '_id',
+
     url: '/api/plans',
 
     model: App.Models.Plan,
