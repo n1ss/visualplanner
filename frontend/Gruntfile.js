@@ -49,7 +49,7 @@ module.exports = function(grunt) {
           paths: {
             underscore: '../vendors/underscore/underscore-min',
             backbone: '../vendors/backbone/backbone-min',
-            handlebars: '../vendors/handlebars/handlebars',
+            handlebars: '../vendors/handlebars.js/dist/handlebars',
             tmpl: 'Classes/Template',
           },
           shim: {
