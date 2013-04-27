@@ -4,6 +4,14 @@ body {
 	background: url("@{imagesPath}/squairy_light.png");
 }
 
+.site-body {
+	margin: 150px 40px 0;
+}
+
+.header-container {
+	margin: 0 40px;
+}
+
 
 .navbar {
 
@@ -31,12 +39,16 @@ body {
 	}
 }
 
-.navbar-text.pull-right, .fn-logout {
-	color: #fff !important;	
+.user-side {
+	&.navbar-text a, &, & a {
+		color: #fff;	
+	}
+
+	padding: 10px;display: block;text-align: right;
 }
 
-.fn-logout {
-	padding-left: 20px;
+.navbar-text.pull-right, .fn-logout {
+	color: #fff !important;	
 }
 
 .site-body {
