@@ -1,4 +1,12 @@
-$(function () {
+/**
+ * Awesome Mudule
+ */
+define([
+  'app',
+  'backbone',
+  'underscore'
+
+], function(App, Backbone, _) {
   var canv = $("#plan-view"),
     paper = Raphael("plan-view", canv.width(), 800);
 
