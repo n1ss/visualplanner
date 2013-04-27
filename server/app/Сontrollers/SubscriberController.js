@@ -1,9 +1,9 @@
 /**
  * Subscriber Controller
  */
-var mongoose = require('mongoose')
-async = require('async')
-    , Subscriber = mongoose.model('Subscriber')
+var mongoose = require('mongoose'),
+    async = require('async'),
+    Subscriber = mongoose.model('Subscriber');
 
 /**
  * Register Action
@@ -28,7 +28,7 @@ exports.subscribe = function(req, res) {
                 status: 'ok'
             });
     });
-}
+};
 
 /**
  * Login Action
@@ -58,7 +58,7 @@ exports.login = function (req, res, passport) {
             });
         });
     })(req, res, passport);
-}
+};
 
 /**
  * Logout Action
@@ -73,4 +73,4 @@ exports.logout = function(req, res) {
         status: true,
         message: 'logout successful'
     });
-}
+};
