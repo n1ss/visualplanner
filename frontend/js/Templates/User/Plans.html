@@ -1,7 +1,4 @@
 <div class="plans-form">
- 	<p>Projects</p>
-	<div id="plan-add-button">+</div>
-
 	<div class="login-form">
 		<p>Create plan</p>
 		<form action="/api/plan" class="fn-add-plan" method="POST">
@@ -16,7 +13,9 @@
 		</form>
 	</div>
 
-	{{#each this}}
-	<a "plan-content" href="plan/{{id}}">{{name}}</a>
-	{{/each}}
+	<ul class="fn-plans">
+		{{#each this}}
+		<li><a "plan-content" href="plan/{{id}}">{{name}}</a></li>
+		{{/each}}
+	</ul>
 </div>

@@ -45,7 +45,7 @@ define([
 
       plan.save();
 
-      console.log(plan);
+      this.$('.fn-plans').append('<li><a "plan-content" href="plan/">' + plan.get('name') + '</a></li>')
     }
   });
 
