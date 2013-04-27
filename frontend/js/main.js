@@ -57,10 +57,10 @@ require([
 
   User.on({
     logged: function() {
-      App.openPage('/plans', true);
+      App.openPage('/plans', {trigger: true, replace: false});
     },
     logout: function() {
-      App.openPage('/', true);
+      App.openPage('/', {trigger: true, replace: false});
     }
   }, this);
 });
