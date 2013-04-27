@@ -1,0 +1,26 @@
+<div class="login-form">
+	<p>Create user</p>
+	<form action="" class="fn-register-form">
+		<div class="messages"></div>
+		<div class="content">
+			<div class="control-group">
+				<label for="reg-email">Email:</label>
+				<input type="text" name="email" id="reg-email" class="send" data-valid="email required">
+			</div>
+			<div class="control-group">
+				<label for="reg-name">Name:</label>
+				<input type="text" name="name" id="reg-name" class="send" data-valid="required">
+			</div>
+			<div class="control-group">
+				<label for="reg-password">Pass:</label>
+				<input type="password" name="password" id="reg-password" class="send" data-valid="required">
+			</div>
+			<div class="control-group">
+				<label for="reg-repeat-password">Repeat pass:</label>
+				<input type="password" name="repeat-password" id="reg-repeat-password" data-valid="required same" data-valid-same="password">
+			</div>
+		</div>
+
+		<input type="submit" value="Register" class="btn">
+	</form>
+</div>
