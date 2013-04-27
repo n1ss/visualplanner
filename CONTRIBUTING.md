@@ -7,13 +7,13 @@ First, ensure that you have the latest [Node.js](http://nodejs.org/) and [npm](h
 
 ### Install grunt
 
-	npm uninstall -g grunt
+	sudu npm install -g grunt
 
-	npm install -g grunt-cli
+	sudu npm install -g grunt-cli
 
 ### Install bower
 
-	npm install -g bower
+	sudu npm install -g bower
 
 ### Install frontend project
 
