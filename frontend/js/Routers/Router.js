@@ -38,6 +38,7 @@ define([
     routes: {
       '': 'indexAction',
       'register': 'registerAction',
+      'logout': 'logoutAction',
 
       'plan': 'planAction',       // 'plan/:id'  : 'planAction',
       'plans': 'plansAction',
@@ -50,6 +51,15 @@ define([
 
     indexAction: function() {
       var view = new App.Views.Home.Subscribe();
+    },
+
+    logoutAction: function() {
+      App.Network.send({
+        url: '/api/user/logout',
+        success: function(data) {
+          User.trigger('logout');
+        }
+      });
     },
 
     registerAction: function() {
