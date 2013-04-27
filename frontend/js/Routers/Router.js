@@ -8,7 +8,8 @@ define([
 
   'Views/Home/Subscribe',
   'Views/User/Register',
-  'Views/User/Plan'
+  'Views/User/Plan',
+  'Views/User/Plans'
 
 ], function(App, Backbone, _) {
   var Router = Backbone.Router.extend({
@@ -20,7 +21,8 @@ define([
     routes: {
       '': 'indexAction',
       'register': 'registerAction',
-      'plan': 'planAction'
+      'plan': 'planAction',
+      'plans': 'plansAction'
     },
 
     indexAction: function() {
@@ -37,6 +39,12 @@ define([
 
     planAction: function(){
       var view = new App.Views.User.Plan();
+
+      App.content.html(view.render().el);
+    },
+
+    plansAction: function(){
+      var view = new App.Views.User.Plans();
 
       App.content.html(view.render().el);
     }

@@ -20,6 +20,12 @@ module.exports = function(app, passport, auth) {
   var SubscriberController = require('../app/Сontrollers/SubscriberController');
   app.post('/subscribe', SubscriberController.subscribe);
 
+  // Plans controller
+  var PlanController = require('../app/Сontrollers/PlanController');
+  app.get('/api/plans', auth.requiresLogin, PlanController.userPlans);
+  app.post('/api/plan', auth.requiresLogin, PlanController.create);
+  app.delete('/api/plan', auth.requiresLogin, PlanController.delete);
+
   var IndexController = require('../app/Сontrollers/IndexController');
 
   // Site routs
