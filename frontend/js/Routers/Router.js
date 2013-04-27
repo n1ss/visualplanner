@@ -9,6 +9,7 @@ define([
   'Models/User',
 
   'Views/Home/Subscribe',
+  'Views/Base/Static',
   'Views/User/Register',
   'Views/User/Plan',
   'Views/User/Plans',
@@ -35,11 +36,15 @@ define([
     },
 
     routes: {
-      ''        : 'indexAction',
+      '': 'indexAction',
       'register': 'registerAction',
-      'plan'    : 'planAction',       // 'plan/:id'  : 'planAction',
-      'plans'   : 'plansAction',
-      'account' : 'userAccount',
+
+      'plan': 'planAction',       // 'plan/:id'  : 'planAction',
+      'plans': 'plansAction',
+      'account': 'userAccount',
+
+      'static/:page': 'staticAction',
+
       '*actions': 'defaultAction'
     },
 
@@ -49,6 +54,7 @@ define([
 
     registerAction: function() {
       var view = new App.Views.User.Register();
+
       App.content.html(view.render().el);
     },
 
@@ -58,6 +64,7 @@ define([
       }
 
       var view = new App.Views.User.Plan();
+
       App.content.html(view.render().el);
     },
 
@@ -67,6 +74,7 @@ define([
       }
 
       var view = new App.Views.User.Plans();
+
       App.content.html(view.render().el);
     },
 
@@ -76,6 +84,15 @@ define([
       }
 
       var view = new App.Views.User.Account();
+
+      App.content.html(view.render().el);
+    },
+
+    staticAction: function(page) {
+      var view = new App.Views.Base.Static({
+        page: page
+      });
+
       App.content.html(view.render().el);
     },
 
