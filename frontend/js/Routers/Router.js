@@ -4,7 +4,9 @@
 define([
   'app',
   'backbone',
-  'underscore'
+  'underscore',
+
+  'Views/Home/Login'
 
 ], function(App, Backbone, _) {
   var Router = Backbone.Router.extend({
@@ -18,7 +20,9 @@ define([
     },
 
     indexAction: function() {
-      console.log('index page');
+      var view = new App.Views.Home.Login();
+
+      App.content.html(view.render().el);
     }
 
   });
