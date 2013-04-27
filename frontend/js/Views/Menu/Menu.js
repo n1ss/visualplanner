@@ -6,25 +6,51 @@ define([
   'backbone',
   'underscore',
 
-  'Views/Menu/Login'
+  'Models/User',
 
-], function(App, Backbone, _) {
+  'Views/Menu/Login',
+  'Views/Menu/UserPanel'
+
+], function(App, Backbone, _, User) {
   var Menu = App.Views.BaseView.extend({
 
     events: {
-      //
+
     },
 
     initialize: function() {
+      User.on({
+        logged: function() {
+          this.renderUserPanel();
+        },
+        logout: function() {
+          this.renderLoginForm();
+        }
+      }, this);
+
+      this.render();
+    },
+
+    render: function() {
+      if (!User.id) {
+        this.renderLoginForm();
+      } else {
+        this.renderUserPanel();
+      }
+
+      return this;
+    },
+
+    renderLoginForm: function() {
       var LoginView = new App.Views.Menu.Login();
 
       LoginView.render();
     },
 
-    render: function() {
-      //
+    renderUserPanel: function() {
+      var UserPanelView = new App.Views.Menu.UserPanel();
 
-      return this;
+      UserPanelView.render();
     }
 
   });
