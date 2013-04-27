@@ -6,7 +6,8 @@ define([
   'backbone',
   'underscore',
 
-  'Views/Home/Subscribe'
+  'Views/Home/Subscribe',
+  'Views/User/Register'
 
 ], function(App, Backbone, _) {
   var Router = Backbone.Router.extend({
@@ -16,11 +17,18 @@ define([
     },
 
     routes: {
-      '': 'indexAction'
+      '': 'indexAction',
+      'register': 'registerAction'
     },
 
     indexAction: function() {
       var view = new App.Views.Home.Subscribe();
+
+      App.content.html(view.render().el);
+    },
+
+    registerAction: function() {
+      var view = new App.Views.User.Register();
 
       App.content.html(view.render().el);
     }
