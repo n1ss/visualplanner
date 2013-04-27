@@ -9,7 +9,7 @@ define([
 ], function(App, Backbone, _) {
   var Plan = Backbone.Model.extend({
 
-    idAttribute: '_id',
+    idAttribute: "_id",
 
     url: '/api/plan',
 
