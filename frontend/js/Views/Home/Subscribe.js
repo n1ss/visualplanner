@@ -12,7 +12,7 @@ define([
   'Views/Base/View'
 
 ], function(App, Backbone, _, tmpl, Form) {
-  var Login = App.Views.BaseView.extend({
+  var Subscribe = App.Views.BaseView.extend({
 
     events: {
       'submit .fn-login-form': 'login'
@@ -22,7 +22,7 @@ define([
     },
 
     render: function() {
-      this.$el.html(tmpl.render('Home/Login'));
+      this.$el.html(tmpl.render('Home/Subscribe'));
 
       return this;
     },
@@ -55,5 +55,5 @@ define([
   });
 
   App.Views.Home = App.Views.Home || {};
-  App.Views.Home.Login = Login;
+  App.Views.Home.Subscribe = Subscribe;
 });

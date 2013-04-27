@@ -6,7 +6,7 @@ define([
   'backbone',
   'underscore',
 
-  'Views/Home/Login'
+  'Views/Home/Subscribe'
 
 ], function(App, Backbone, _) {
   var Router = Backbone.Router.extend({
@@ -20,7 +20,7 @@ define([
     },
 
     indexAction: function() {
-      var view = new App.Views.Home.Login();
+      var view = new App.Views.Home.Subscribe();
 
       App.content.html(view.render().el);
     }
