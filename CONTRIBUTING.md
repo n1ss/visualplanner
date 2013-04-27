@@ -7,9 +7,9 @@ First, ensure that you have the latest [Node.js](http://nodejs.org/) and [npm](h
 
 ### Install grunt
 
-	sudu npm install -g grunt
+	sudo npm install -g grunt
 
-	sudu npm install -g grunt-cli
+	sudo npm install -g grunt-cli
 
 ### Install bower
 
