@@ -46,7 +46,72 @@ $(function () {
       y2 = [y1 - dy, y1 + dy, y1, y1][res[0]].toFixed(3),
       x3 = [0, 0, 0, 0, x4, x4, x4 - dx, x4 + dx][res[1]].toFixed(3),
       y3 = [0, 0, 0, 0, y1 + dy, y1 - dy, y4, y4][res[1]].toFixed(3);
-    var path = ["M", x1.toFixed(3), y1.toFixed(3), "C", x2, y2, x3, y3, x4.toFixed(3), y4.toFixed(3)].join(",");
+
+
+    var x = x1;
+    var y = y1;
+
+    var fx = x4;
+    var fy = y4;
+
+    var height, length, path;
+
+    var radius = 20 ;
+
+
+
+    if (fx > x && fy > y && (fx - x) > (fy - y)) {
+      length = (fx - x) / 2 - radius;
+      height = fy - y - radius;
+
+      path = [
+        "M", x, y,
+        "L", x + length, y,
+        "A", radius, radius, 0, 0, 1, x + length + radius, y + radius,
+        "L", x + length + radius, y + height,
+        "A", radius, radius, 0, 0, 0, x + length + radius * 2, y + height + radius,
+        "L", fx, fy
+      ];
+    } else if (x > fx && fy > y && (x - fx) > (fy - y)){
+      length = (x - fx) /2;
+      height = fy - y;
+
+      path = [
+        "M", x, y,
+        "L", x - length + radius, y,
+        "A", radius, radius, 0, 0, 0, x - length, y + radius,
+        "L", x - length, y + height - radius,
+        "A", radius, radius, 0, 0, 1, fx + length - radius, fy,
+        "L", fx, fy
+      ];
+    } else if (x > fx && fy > y && (x - fx) < (fy - y)){
+      length = x - fx;
+      height = (fy - y) / 2;
+
+      path = [
+        "M", x, y,
+        "L", x, y + height - radius,
+        "A", radius, radius, 0, 0, 1, fx + length - radius, y + height,
+        "L", x - length + radius, y + height ,
+        "A", radius, radius, 0, 0, 0, fx, fy - height + radius ,
+        "L", fx, fy
+      ];
+    } else if (fx > x && fy > y && (fx - x) < (fy - y)){
+      length = fx - x;
+      height = (fy - y) / 2;
+
+      path = [
+        "M", x, y,
+        "L", x, y + height - radius,
+        "A", radius, radius, 0, 0, 0, x + radius, y + height,
+        "L", x + length - radius, y + height ,
+        "A", radius, radius, 0, 0, 1, fx, fy - height + radius ,
+        "L", fx, fy
+      ];
+    }
+
+
+//    var path = ["M", x1.toFixed(3), y1.toFixed(3), "C", x2, y2, x3, y3, x4.toFixed(3), y4.toFixed(3)].join(",");
     if (line && line.line) {
       line.bg && line.bg.attr({path: path});
       line.line.attr({path: path});
@@ -81,7 +146,11 @@ $(function () {
     shapes = [];
 
   var Milestone = function (x, y) {
-    return paper.rect(x, y, 180, 40, 5).attr({fill: "#2ECC71", "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
+    return paper.rect(x, y, 180, 40, 5).attr({fill: "#2ECC71", "fill-opacity": 1, "stroke-width": 0, cursor: "move"}).click(
+      function () {
+        //alert("asd");
+      }
+    );
   };
 
   $("#add-milestone").submit(function (e) {
