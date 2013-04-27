@@ -14,6 +14,9 @@ define([
     },
 
     initialize: function() {
+      require(['raphael'], function() {
+        require(['Components/Map']);
+      });
     },
 
     render: function() {
