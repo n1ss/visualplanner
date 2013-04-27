@@ -33,6 +33,17 @@ exports.create = function(req, res) {
   });
 }
 
+exports.userPlans = function(req, res) {
+    UserPlan
+        .find({
+            user: req.user
+        }, function(err, userPlans) {
+            if (err) return res.json(500, err);
+
+            return res.json(userPlans);
+        });
+}
+
 /**
  * Remove plan
  * @param  {Object}   req
