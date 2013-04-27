@@ -64,9 +64,11 @@ define([
 
     var height, length, path;
 
-    var radius = 20 ;
 
 
+    var fixedRadius = 20 ;
+
+    var radius = Math.min(fx > x ? (fx - x ) / 2 : (x - fx ) / 2, fy > y ? (fy - y ) / 2 : (y - fy ) / 2, fixedRadius);
 
     if (fx > x && fy > y && (fx - x) > (fy - y)) {
       length = (fx - x) / 2 - radius;
