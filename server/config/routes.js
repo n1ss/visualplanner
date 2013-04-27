@@ -16,6 +16,10 @@ module.exports = function(app, passport, auth) {
   app.get('/api/user/logout', UserController.logout);
   app.get('/api/user/:id', auth.requiresLogin, UserController.index);
 
+  // Subscriber controller
+  var SubscriberController = require('../app/Сontrollers/SubscriberController');
+  app.post('/subscribe', SubscriberController.subscribe);
+
   var IndexController = require('../app/Сontrollers/IndexController');
 
   // Site routs
