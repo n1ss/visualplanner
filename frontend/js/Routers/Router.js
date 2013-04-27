@@ -6,16 +6,32 @@ define([
   'backbone',
   'underscore',
 
+  'Models/User',
+
   'Views/Home/Subscribe',
   'Views/User/Register',
   'Views/User/Plan',
   'Views/User/Plans'
 
-], function(App, Backbone, _) {
+], function(App, Backbone, _, User) {
   var Router = Backbone.Router.extend({
 
     initialize: function() {
       
+    },
+
+    /**
+     * Check is user login
+     * @return {Boolean}
+     */
+    checkAutch: function() {
+      if (!User.id) {
+        App.Router.navigate('/', {trigger: true, replace: false});
+
+        return false;
+      }
+
+      return true;
     },
 
     routes: {
@@ -35,13 +51,21 @@ define([
       App.content.html(view.render().el);
     },
 
-    planAction: function(){
+    planAction: function() {
+      if (this.checkAutch() === false) {
+        return;
+      }
+
       var view = new App.Views.User.Plan();
 
       App.content.html(view.render().el);
     },
 
-    plansAction: function(){
+    plansAction: function() {
+      if (this.checkAutch() === false) {
+        return;
+      }
+
       var view = new App.Views.User.Plans();
 
       App.content.html(view.render().el);
