@@ -25,52 +25,8 @@ exports.subscribe = function(req, res) {
             }
         } else
             return res.json({
-                status: 'ok'
+                status: 'ok',
+                message: 'Thank for interest in our product, we\'ll notify you just before release.'
             });
-    });
-};
-
-/**
- * Login Action
- * @param  {Object}   req
- * @param  {Object}   res
- * @param  {Object}   passport
- * @return {Response}
- */
-exports.login = function (req, res, passport) {
-    passport.authenticate('local', function(err, user, info) {
-        if (err) return res.json(500, err);
-
-        // user not found
-        if (!user) return res.json(info);
-
-        // login user
-        req.logIn(user, function(err) {
-            if (err) return res.json(500, err);
-
-            return res.json({
-                status: true,
-                user: {
-                    id: user._id,
-                    name: user.name,
-                    email: user.email
-                }
-            });
-        });
-    })(req, res, passport);
-};
-
-/**
- * Logout Action
- * @param  {Object}   req
- * @param  {Object}   res
- * @return {Response}
- */
-exports.logout = function(req, res) {
-    req.logout();
-
-    return res.json({
-        status: true,
-        message: 'logout successful'
     });
 };
