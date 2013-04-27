@@ -6,13 +6,14 @@ define([
 
   'Views/Base/View',
 
-  'Collections/Plans'
+  'Collections/Plans',
+  'Models/Plan'
 
 ], function(App, Backbone, _, tmpl) {
   var Plans = App.Views.BaseView.extend({
 
     events: {
-
+      'submit .fn-add-plan': 'addPlan'
     },
 
     initialize: function() {
@@ -25,6 +26,20 @@ define([
       this.$el.html(tmpl.render('User/Plans'));
 
       return this;
+    },
+
+    addPlan: function(e) {
+      e.preventDefault();
+
+      var $form = $(e.currentTarget);
+
+      var plan = new App.Models.Plan({
+        name: $form.find('#plan-name').val()
+      });
+
+      plan.save();
+
+      console.log(plan);
     }
   });
 

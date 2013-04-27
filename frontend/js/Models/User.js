@@ -6,7 +6,7 @@ define([
   'backbone',
   'underscore'
 
-], function(App, Backbone, _, Tracks) {
+], function(App, Backbone, _) {
   var User = Backbone.Model.extend({
 
     urlRoot: '/api/user',
