@@ -1,7 +1,9 @@
 /**
  * Application namespace, global application object
  */
-define(function() {
+define([,
+],
+function() {
   return {
     Models: {},
     Collections: {},

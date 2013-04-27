@@ -28,5 +28,6 @@ define([
 
   });
 
+  App.Views = App.Views || {};
   App.Views.BaseView = BaseView;
 });

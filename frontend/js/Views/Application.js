@@ -6,10 +6,12 @@ define([
   'backbone',
   'underscore',
 
+  'Models/User',
+
   'Views/Base/View',
   'Views/Menu/Menu'
 
-], function(App, Backbone, _) {
+], function(App, Backbone, _, User) {
   var Application = App.Views.BaseView.extend({
 
     el: '#fn-application',
