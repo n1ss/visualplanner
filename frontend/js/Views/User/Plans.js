@@ -46,6 +46,7 @@ define([
 
       plan.save();
 
+      this.$('#plan-name').val('');
       this.$('.fn-plans').append(tmpl.render('User/PlanItem', plan.toJSON()));
     }
   });
