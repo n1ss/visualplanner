@@ -16,9 +16,9 @@ define([
     },
 
     initialize: function() {
-    	var LoginView = new App.Views.Menu.Login();
+      var LoginView = new App.Views.Menu.Login();
 
-    	LoginView.render();
+      LoginView.render();
     },
 
     render: function() {
