@@ -1,57 +1,33 @@
-/**
- * Application View
- */
 define([
   'app',
   'backbone',
   'underscore',
   'tmpl',
 
-  'Classes/Form',
+  'Views/Base/View',
 
-  'Views/Base/View'
+  'Collections/Plans'
 
-], function(App, Backbone, _, tmpl, Form) {
+], function(App, Backbone, _, tmpl) {
   var Plans = App.Views.BaseView.extend({
 
     events: {
-      'a .fn-register-form': 'subscribe'
+
     },
 
     initialize: function() {
+      var plans = new App.Collections.Plans();
+
+      plans.fetch();
     },
 
     render: function() {
-      this.$el.html(tmpl.render('User/Register'));
+      this.$el.html(tmpl.render('User/Plans'));
 
       return this;
-    },
-
-    subscribe: function(e) {
-      e.preventDefault();
-
-      var form = new Form(this.$('.fn-register-form'));
-
-      if (form.checkValid()) {
-        App.Network.send({
-          url: '/api/user/register',
-          data: form.data,
-          type: 'post',
-          context: this,
-          success: function(data) {
-            if (data.status) {
-              alert('register success!');
-            } else {
-              var error = $('<p>').html(data.message);
-              this.$('.messages').addClass('error').html(error);
-            }
-          }
-        });
-      }
     }
-
   });
 
   App.Views.User = App.Views.User || {};
-  App.Views.User.Register = Register;
+  App.Views.User.Plans = Plans;
 });

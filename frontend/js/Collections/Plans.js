@@ -11,7 +11,7 @@ define([
 ], function(App, Backbone, _) {
   var Plans = Backbone.Collection.extend({
 
-    urlRoot: '/api/plans',
+    url: '/api/plans',
 
     model: App.Models.Plan,
 
