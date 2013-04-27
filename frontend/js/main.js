@@ -8,7 +8,7 @@ require.config({
   paths: {
     underscore: '../vendors/underscore/underscore',
     backbone: '../vendors/backbone/backbone',
-    handlebars: '../vendors/handlebars.js/handlebars',
+    handlebars: '../vendors/handlebars.js/dist/handlebars',
     tmpl: 'Classes/Template'
   },
   shim: {
