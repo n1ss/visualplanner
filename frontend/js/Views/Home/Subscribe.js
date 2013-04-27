@@ -15,7 +15,7 @@ define([
   var Subscribe = App.Views.BaseView.extend({
 
     events: {
-      'submit .fn-login-form': 'login'
+      'submit .fn-subscribe-form': 'subscribe'
     },
 
     initialize: function() {
@@ -27,16 +27,16 @@ define([
       return this;
     },
 
-    login: function(e) {
+    subscribe: function(e) {
       e.preventDefault();
 
-      var form = new Form(this.$('.fn-login-form'));
+      var form = new Form(this.$('.fn-subscribe-form'));
 
       console.log(form.checkValid());
 
       if (form.checkValid()) {
         App.Network.send({
-          url: '/user/login',
+          url: '/subscribe',
           data: form.data,
           type: 'post',
           context: this,
