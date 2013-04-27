@@ -53,16 +53,15 @@ exports.delete = function(req, res) {
                 }, function (err, userPlan) {
                     userPlan.remove(function(error) {
                         if (error) return res.json(500, error);
-                        // TODO: probably use assync here?
+                    });
+
+                    plan.remove(function(error) {
+                        if (err) return res.json(500, err);
+
+                        return res.json({
+                            status: true
+                        });
                     });
                 });
-
-            plan.remove(function(error) {
-                if (err) return res.json(500, err);
-
-                return res.json({
-                    status: true
-                });
-            });
         });
 }

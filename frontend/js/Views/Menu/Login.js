@@ -46,7 +46,7 @@ define([
           context: this,
           success: function(data) {
             if (data.status) {
-              User.trigger('logged');
+              User.trigger('logged', data.user);
             } else {
               var error = $('<p>').html(data.message);
               this.$('.messages').addClass('error').html(error);

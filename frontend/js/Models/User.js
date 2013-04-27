@@ -18,23 +18,17 @@ define([
       });
 
       if (Planner.isLogged) {
-        this.set(Planner.user);
-        this.logged();
+        this.logged(Planner.user);
       }
     },
 
     /**
      * Run after user login
      */
-    logged: function() {
-      Planner.isLogged = true;
+    logged: function(data) {
+      this.set(data);
 
-      this.fetch({
-        success: function() {
-          this.trigger('loaded');
-          this.set('loaded', true);
-        }.bind(this)
-      });
+      Planner.isLogged = true;
     },
 
     /**
