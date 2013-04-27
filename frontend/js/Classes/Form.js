@@ -64,7 +64,7 @@ define([
     checkInput: function($input) {
       var rules, valid;
 
-      var $parent = $input.parents('.controll-block');
+      var $parent = $input.parents('.control-group');
       
       rules = $input.data('valid');
       rules = rules ? rules.split(' ') : undefined;
