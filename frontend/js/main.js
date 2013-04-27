@@ -30,10 +30,12 @@ require([
   'backbone',
   'underscore',
 
+  'Models/User',
+
   'Routers/Router',
   'Views/Application'
 
-], function(App, Backbone, _) {
+], function(App, Backbone, _, User) {
   var application = new App.Views.Application();
 
   _.extend(App, application);

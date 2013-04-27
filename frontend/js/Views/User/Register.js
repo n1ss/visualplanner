@@ -7,11 +7,13 @@ define([
   'underscore',
   'tmpl',
 
+  'Models/User',
+
   'Classes/Form',
 
   'Views/Base/View'
 
-], function(App, Backbone, _, tmpl, Form) {
+], function(App, Backbone, _, tmpl, User, Form) {
   var Register = App.Views.BaseView.extend({
 
     events: {
@@ -40,7 +42,7 @@ define([
           context: this,
           success: function(data) {
             if (data.status) {
-              alert('register success!');
+              User.trigger('logged');
             } else {
               var error = $('<p>').html(data.message);
               this.$('.messages').addClass('error').html(error);
