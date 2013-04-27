@@ -12,17 +12,17 @@ define([
   'Views/Base/View'
 
 ], function(App, Backbone, _, tmpl, Form) {
-  var Subscribe = App.Views.BaseView.extend({
+  var Register = App.Views.BaseView.extend({
 
     events: {
-      'submit .fn-subscribe-form': 'subscribe'
+      'submit .fn-register-form': 'subscribe'
     },
 
     initialize: function() {
     },
 
     render: function() {
-      this.$el.html(tmpl.render('Home/Subscribe'));
+      this.$el.html(tmpl.render('User/Register'));
 
       return this;
     },
@@ -30,17 +30,17 @@ define([
     subscribe: function(e) {
       e.preventDefault();
 
-      var form = new Form(this.$('.fn-subscribe-form'));
+      var form = new Form(this.$('.fn-register-form'));
 
       if (form.checkValid()) {
         App.Network.send({
-          url: '/subscribe',
+          url: '/api/user/register',
           data: form.data,
           type: 'post',
           context: this,
           success: function(data) {
             if (data.status) {
-              alert('subscribe success!');
+              alert('register success!');
             } else {
               var error = $('<p>').html(data.message);
               this.$('.messages').addClass('error').html(error);
@@ -52,6 +52,6 @@ define([
 
   });
 
-  App.Views.Home = App.Views.Home || {};
-  App.Views.Home.Subscribe = Subscribe;
+  App.Views.User = App.Views.User || {};
+  App.Views.User.Register = Register;
 });
