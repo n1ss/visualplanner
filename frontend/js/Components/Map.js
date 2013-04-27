@@ -88,7 +88,7 @@ $(function () {
     e.preventDefault();
 
     if (shapes.length > 1) {
-      paper.connection(shapes[shapes.length - 1], shapes[shapes.length - 2], "#34495E");
+      connections.push(paper.connection(shapes[shapes.length - 1], shapes[shapes.length - 2], "#34495E"));
     }
     shapes.push(new Milestone(100, 100).drag(move, dragger, up));
 
