@@ -1,5 +1,5 @@
 /**
- * Application View
+ * Login View
  */
 define([
   'app',
@@ -8,21 +8,25 @@ define([
   'tmpl',
 
   'Classes/Form',
+  'Classes/Network',
 
   'Views/Base/View'
 
 ], function(App, Backbone, _, tmpl, Form) {
   var Login = App.Views.BaseView.extend({
 
+	el: '.fn-user-side',
+
     events: {
       'submit .fn-login-form': 'login'
     },
 
     initialize: function() {
+
     },
 
     render: function() {
-      this.$el.html(tmpl.render('Home/Login'));
+      this.$el.html(tmpl.render('Menu/Login'));
 
       return this;
     },
@@ -31,8 +35,6 @@ define([
       e.preventDefault();
 
       var form = new Form(this.$('.fn-login-form'));
-
-      console.log(form.checkValid());
 
       if (form.checkValid()) {
         App.Network.send({
@@ -54,6 +56,6 @@ define([
 
   });
 
-  App.Views.Home = App.Views.Home || {};
-  App.Views.Home.Login = Login;
+  App.Views.Menu = App.Views.Menu || {};
+  App.Views.Menu.Login = Login;
 });

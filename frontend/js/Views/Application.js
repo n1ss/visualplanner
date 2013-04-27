@@ -6,7 +6,8 @@ define([
   'backbone',
   'underscore',
 
-  'Views/Base/View'
+  'Views/Base/View',
+  'Views/Menu/Menu'
 
 ], function(App, Backbone, _) {
   var Application = App.Views.BaseView.extend({
@@ -24,7 +25,7 @@ define([
     },
 
     render: function() {
-      console.log('render application');
+      var menuView = new App.Views.Menu.Menu();
 
       return this;
     },
