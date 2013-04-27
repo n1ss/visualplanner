@@ -12,9 +12,10 @@ var mongoose = require('mongoose')
  * @return {Response}
  */
 exports.index = function(req, res) {
-
-  // some logic
-
+  res.json({
+    status: true,
+    user: req.user
+  });
 }
 
 /**
@@ -80,6 +81,10 @@ exports.login = function (req, res, passport) {
       });
     });
   })(req, res, passport);
+}
+
+exports.update = function (req, res, passport) {
+
 }
 
 /**

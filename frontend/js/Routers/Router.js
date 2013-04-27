@@ -11,7 +11,8 @@ define([
   'Views/Home/Subscribe',
   'Views/User/Register',
   'Views/User/Plan',
-  'Views/User/Plans'
+  'Views/User/Plans',
+  'Views/User/Account'
 
 ], function(App, Backbone, _, User) {
   var Router = Backbone.Router.extend({
@@ -27,7 +28,6 @@ define([
     checkAutch: function() {
       if (!User.id) {
         App.Router.navigate('/', {trigger: true, replace: false});
-
         return false;
       }
 
@@ -35,10 +35,12 @@ define([
     },
 
     routes: {
-      '': 'indexAction',
+      ''        : 'indexAction',
       'register': 'registerAction',
-      'plan': 'planAction',
-      'plans': 'plansAction'
+      'plan'    : 'planAction',       // 'plan/:id'  : 'planAction',
+      'plans'   : 'plansAction',
+      'account' : 'userAccount',
+      '*actions': 'defaultAction'
     },
 
     indexAction: function() {
@@ -47,17 +49,15 @@ define([
 
     registerAction: function() {
       var view = new App.Views.User.Register();
-
       App.content.html(view.render().el);
     },
 
-    planAction: function() {
+    planAction: function(id) {
       if (this.checkAutch() === false) {
         return;
       }
 
       var view = new App.Views.User.Plan();
-
       App.content.html(view.render().el);
     },
 
@@ -67,8 +67,20 @@ define([
       }
 
       var view = new App.Views.User.Plans();
-
       App.content.html(view.render().el);
+    },
+
+    userAccount: function() {
+      if (this.checkAutch() === false) {
+        return;
+      }
+
+      var view = new App.Views.User.Account();
+      App.content.html(view.render().el);
+    },
+
+    defaultAction: function() {
+      App.Router.navigate('/', {trigger: true, replace: false});
     }
 
   });
