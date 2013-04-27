@@ -17,9 +17,15 @@ define([
     },
 
     initialize: function() {
-      var plans = new App.Collections.Plans();
+      var plans = new App.Collections.Plans(),
+          plan = this;
 
-      plans.fetch();
+      plans.fetch({
+        success: function(data) {
+          console.log(data.toJSON());
+          plan.$el.html(tmpl.render('User/Plans', data.toJSON()));
+        }
+      });
     },
 
     render: function() {
