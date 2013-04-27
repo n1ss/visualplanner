@@ -39,8 +39,11 @@ define([
           type: 'post',
           context: this,
           success: function(data) {
-            if (data.status) {
-              alert('subscribe success!');
+            if (data.status === 'ok') {
+              var text = $('<p>').html(data.message);
+              this.$('.messages').addClass('info').html(text);
+              this.$('.content').hide();
+              this.$('footer').hide();
             } else {
               var error = $('<p>').html(data.message);
               this.$('.messages').addClass('error').html(error);
