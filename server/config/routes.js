@@ -23,6 +23,8 @@ module.exports = function(app, passport, auth) {
   // Plans controller
   var PlanController = require('../app/Сontrollers/PlanController');
   app.get('/api/plans', auth.requiresLogin, PlanController.userPlans)
+  app.post('/api/plan/create', auth.requiresLogin, PlanController.create)
+  app.post('/api/plan/delete', auth.requiresLogin, PlanController.delete)
 
   var IndexController = require('../app/Сontrollers/IndexController');
 
