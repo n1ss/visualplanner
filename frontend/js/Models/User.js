@@ -29,6 +29,8 @@ define([
       this.set(data);
 
       Planner.isLogged = true;
+
+      App.openPage('/plans');
     },
 
     /**
