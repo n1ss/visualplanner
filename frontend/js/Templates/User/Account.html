@@ -1,0 +1,37 @@
+<div class="login-form">
+	<p>Edit your profile</p>
+	<form action="" class="fn-account-form">
+		
+		<div class="messages"></div>
+		<div class="content">
+
+			<div class="control-group">
+				<label for="account-name">Name</label>
+				<input type="text" name="name" id="account-name" class="send" data-valid="required">
+			</div>
+
+			<div class="control-group">
+				<label for="reg-email">E-mail</label>
+				<input type="text" name="email" id="reg-email" class="send" data-valid="email required">
+			</div>
+
+			<div class="control-group">
+				<label for="account-password">New password</label>
+				<input type="password" name="password" id="account-password" class="send" data-valid="required">
+			</div>
+
+			<div class="control-group">
+				<label for="account-repeat-password">Confirm password</label>
+				<input type="password" name="repeat-password" id="account-repeat-password" data-valid="required same" data-valid-same="password">
+			</div>
+
+			<div class="control-group">
+				<label for="account-check-password">Old password</label>
+				<input type="password" name="check-password" id="account-check-password" data-valid="password">
+			</div>
+
+		</div>
+
+		<input type="submit" value="Update profile" class="btn">
+	</form>
+</div>

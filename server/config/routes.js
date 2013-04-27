@@ -15,6 +15,7 @@ module.exports = function(app, passport, auth) {
   });
   app.get('/api/user/logout', UserController.logout);
   app.get('/api/user/:id', auth.requiresLogin, UserController.index);
+  app.put('/api/user/:id', auth.requiresLogin, UserController.update);
 
   // Subscriber controller
   var SubscriberController = require('../app/Сontrollers/SubscriberController');

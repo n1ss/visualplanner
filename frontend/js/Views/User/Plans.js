@@ -4,12 +4,14 @@ define([
   'underscore',
   'tmpl',
 
+  'Classes/Form',
+
   'Views/Base/View',
 
   'Collections/Plans',
   'Models/Plan'
 
-], function(App, Backbone, _, tmpl) {
+], function(App, Backbone, _, tmpl, Form) {
   var Plans = App.Views.BaseView.extend({
 
     events: {
@@ -38,16 +40,18 @@ define([
     addPlan: function(e) {
       e.preventDefault();
 
-      var $form = $(e.currentTarget);
+      var form = new Form($(e.currentTarget));
 
-      var plan = new App.Models.Plan({
-        name: $form.find('#plan-name').val()
-      });
+      if (form.checkValid()) {
+        var plan = new App.Models.Plan({
+          name: form.$.find('#plan-name').val()
+        });
 
-      plan.save();
+        plan.save();
 
-      this.$('#plan-name').val('');
-      this.$('.fn-plans').append(tmpl.render('User/PlanItem', plan.toJSON()));
+        this.$('#plan-name').val('');
+        this.$('.fn-plans').append(tmpl.render('User/PlanItem', plan.toJSON()));
+      }
     }
   });
 

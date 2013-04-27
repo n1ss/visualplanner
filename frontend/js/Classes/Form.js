@@ -8,12 +8,14 @@ define([
 
 ], function(App, Backbone, _) {
   var Form = function($form) {
-    this.$form = $form;
+    this.$ = $form;
 
     this.data = {};
     this.inputs = [];
 
     this.getData();
+
+    return this;
   };
 
   Form.prototype = {
@@ -25,7 +27,7 @@ define([
     getData: function() {
       var key, value, $input;
 
-      this.$form.find('input').each(function(i, input) {
+      this.$.find('input').each(function(i, input) {
         $input = $(input);
         key = $input.attr('name');
         value = $input.val();
@@ -112,7 +114,7 @@ define([
     isSame: function($input) {
       var valid = true;
       var same = $input.data('validSame');
-      var $same = this.$form.find('[name="' + same +'"]');
+      var $same = this.$.find('[name="' + same +'"]');
 
       $same.off('keyup.same').on('keyup.same', function() {
         this.checkInput($input);

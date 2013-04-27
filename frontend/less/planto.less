@@ -1,13 +1,33 @@
+@imagesPath: "/images";
+
+body {
+	background: url("@{imagesPath}/squairy_light.png");
+}
+
+.site-body {
+	margin: 150px 40px 0;
+}
+
+.header-container {
+	margin: 0 auto;
+	width: 1000px;
+}
+
 
 .navbar {
+
+	.brand {
+		padding-top: 10px;
+	}
+
 	.navbar-inner {
 		background: #52bb6f;
-		height: 130px;
+		height: 80px;
 	}
 
 	.navbar-form {
 
-		padding-top: 10px;
+		padding-top: 5px;
 
 		input {
 			height: 7px;
@@ -20,16 +40,24 @@
 	}
 }
 
+.subscribe-wrap {
+	margin: 0 auto;
+}
+
+.user-side {
+	&.navbar-text a, &, & a {
+		color: #fff;	
+	}
+
+	padding: 10px;display: block;text-align: right;
+}
+
 .navbar-text.pull-right, .fn-logout {
 	color: #fff !important;	
 }
 
-.fn-logout {
-	padding-left: 20px;
-}
-
 .site-body {
-	margin-top: 150px;
+	margin-top: 95px;
 }
 
 .left {
@@ -58,4 +86,8 @@
 
 .w-60 {
 	width: 60%;
+}
+
+.w-1000 {
+	width: 1000px;
 }
