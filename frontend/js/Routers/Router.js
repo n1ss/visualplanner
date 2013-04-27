@@ -40,7 +40,7 @@ define([
       'register': 'registerAction',
       'logout': 'logoutAction',
 
-      'plan': 'planAction',       // 'plan/:id'  : 'planAction',
+      'plan/:id'  : 'planAction',
       'plans': 'plansAction',
       'account': 'userAccount',
 

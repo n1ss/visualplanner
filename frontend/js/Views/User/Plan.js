@@ -10,17 +10,21 @@ define([
   var Plan = App.Views.BaseView.extend({
 
     events: {
-
+      'submit .add-milestone': 'addMilestone'
     },
 
     initialize: function() {
-      require(['raphael'], function() {
-        require(['Components/Map']);
-      });
     },
 
     render: function() {
       this.$el.html(tmpl.render('User/Plan'));
+
+      require([
+        'raphael'
+      ],
+      function() {
+        require(['Components/Map']);
+      });
 
       return this;
     }
