@@ -81,16 +81,20 @@ $(function () {
     shapes = [];
 
   var Milestone = function (x, y) {
-    return paper.rect(x, y, 180, 30, 5).attr({fill: "#2ECC71", "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
+    return paper.rect(x, y, 180, 40, 5).attr({fill: "#2ECC71", "fill-opacity": 1, "stroke-width": 0, cursor: "move"});
   };
 
-  $("#add-milestone").click(function (e) {
+  $("#add-milestone").submit(function (e) {
     e.preventDefault();
+
+    var x = parseInt($(this).find("[name='x']").val());
+    var y = parseInt($(this).find("[name='y']").val());
 
     if (shapes.length > 1) {
       connections.push(paper.connection(shapes[shapes.length - 1], shapes[shapes.length - 2], "#34495E"));
     }
-    shapes.push(new Milestone(100, 100).drag(move, dragger, up));
+
+    shapes.push(new Milestone(x, y).drag(move, dragger, up));
 
   });
 
