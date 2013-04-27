@@ -48,9 +48,21 @@ require([
 
 ], function(App, Backbone, _, User, eve) {
   window.eve = eve;
+
   var application = new App.Views.Application();
 
   _.extend(App, application);
 
   Backbone.history.start({pushState: true});
+
+  User.done(function() {
+    App.openPage('/plans', true);
+  }).on({
+    logged: function() {
+      App.openPage('/plans', true);
+    },
+    logout: function() {
+      App.openPage('/', true);
+    }
+  }, this);
 });
