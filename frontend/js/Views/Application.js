@@ -11,7 +11,9 @@ define([
 ], function(App, Backbone, _) {
   var Application = App.Views.BaseView.extend({
 
-    el: '#application',
+    el: '#fn-application',
+
+    content: $('#fn-page-wraper'),
 
     events: {
       'click a[data-type="app-link"]': 'clickLink'

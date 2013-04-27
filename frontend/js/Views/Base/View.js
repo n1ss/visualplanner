@@ -17,7 +17,7 @@ define([
       
       if (typeof template === 'string') {
         templateFunc = tmpl.compile(template);
-        
+
         this.constructor.prototype.template = templateFunc;
       } else {
         templateFunc = template;
