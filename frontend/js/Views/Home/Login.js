@@ -7,23 +7,49 @@ define([
   'underscore',
   'tmpl',
 
+  'Classes/Form',
+
   'Views/Base/View'
 
-], function(App, Backbone, _, tmpl) {
+], function(App, Backbone, _, tmpl, Form) {
   var Login = App.Views.BaseView.extend({
 
     events: {
-
+      'submit .fn-login-form': 'login'
     },
 
     initialize: function() {
-      this.$el.html(tmpl.render('Home/Login'));
     },
 
     render: function() {
-      console.log('render login');
+      this.$el.html(tmpl.render('Home/Login'));
 
       return this;
+    },
+
+    login: function(e) {
+      e.preventDefault();
+
+      var form = new Form(this.$('.fn-login-form'));
+
+      console.log(form.checkValid());
+
+      if (form.checkValid()) {
+        App.Network.send({
+          url: '/user/login',
+          data: form.data,
+          type: 'post',
+          context: this,
+          success: function(data) {
+            if (data.status) {
+              alert('login success!');
+            } else {
+              var error = $('<p>').html(data.message);
+              this.$('.messages').addClass('error').html(error);
+            }
+          }
+        });
+      }
     }
 
   });
