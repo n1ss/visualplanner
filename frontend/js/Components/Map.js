@@ -56,9 +56,13 @@ $(function () {
 
     var height, length, path;
 
-    var radius = 20 ;
 
 
+    var fixedRadius = 20 ;
+
+    var xRadius = fx > x ? (fx - x ) / 2 : (x - fx ) / 2;
+    var yRadius = fy > y ? (fy - y ) / 2 : (y - fy ) / 2;
+    var radius = Math.min(xRadius, yRadius, fixedRadius);
 
     if (fx > x && fy > y && (fx - x) > (fy - y)) {
       length = (fx - x) / 2 - radius;
