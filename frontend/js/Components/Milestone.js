@@ -18,7 +18,6 @@ define([
 
     this.dragger = function () {
       milestoune.elems.forEach(function(elem) {
-        // Original coords for main element
         elem.ox = elem.type == "ellipse" ? elem.attr("cx") : elem.attr("x");
         elem.oy = elem.type == "ellipse" ? elem.attr("cy") : elem.attr("y");
       });
@@ -28,9 +27,12 @@ define([
 
     this.move = function (dx, dy, x, y, e) {
       milestoune.elems.forEach(function(elem) {
-        // Move main element
-        var att = elem.type == "ellipse" ? {cx: elem.ox + dx, cy: elem.oy + dy} : 
-                                           {x: elem.ox + dx, y: elem.oy + dy};
+        if (elem.type == "ellipse") {
+          var att = {cx: elem.ox + dx, cy: elem.oy + dy};
+        } else {
+          var att = {x: elem.ox + dx, y: elem.oy + dy};
+        }
+                                           
         elem.attr(att);
       });
 
