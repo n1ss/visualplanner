@@ -1,9 +1,16 @@
-<form action="#" id="add-milestone">
-    <input name="x" type="number" value="100">
-    <input name="y" type="number" value="100">
-    <input name="name" type="text" value="name">
-    <input type="submit" value="add">
-</form>
-<div id="plan-view">
-
+<div class="row-fluid">
+	<div class="span3">
+		<form action="#" id="add-milestone" class="fn-add-milestone login-form add-milestone-form">
+			<a href="/plans" class="btn" style="margin-bottom: 40px;" data-type="app-link">Back to overview</a>
+			<div class="control-group">
+				<h4>Add new milestone</h4>
+				<input name="name" type="text" value="" id="mailstone-name" placeholder="Name" data-valid="required">
+			</div>
+			<input type="submit" value="Add" class="btn">
+		</form>		
+	</div>
+	<div class="span9">
+		
+		<div id="plan-view"></div>
+	</div>
 </div>

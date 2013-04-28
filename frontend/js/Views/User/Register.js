@@ -25,7 +25,6 @@ define([
 
     render: function() {
       this.$el.html(tmpl.render('User/Register'));
-
       return this;
     },
 

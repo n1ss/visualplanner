@@ -1,13 +1,29 @@
+@imagesPath: "/images";
+
+.site-body {
+	margin: 150px 40px 0;
+}
+
+.header-container {
+	margin: 0 auto;
+	width: 1000px;
+}
+
 
 .navbar {
+
+	.brand {
+		padding-top: 10px;
+	}
+
 	.navbar-inner {
 		background: #52bb6f;
-		height: 130px;
+		height: 80px;
 	}
 
 	.navbar-form {
 
-		padding-top: 10px;
+		padding-top: 19px;
 
 		input {
 			height: 7px;
@@ -20,16 +36,123 @@
 	}
 }
 
+.promo-wrap {
+	margin: 0 auto;
+	background: #eceff1;
+	color: #34495e;
+
+	.item-wrap {
+		padding: 10px;
+	}
+
+	.i-am-span {
+		display: inline;
+	}
+
+	.promo-list li {
+		margin-top: 10px;
+	}
+}
+
+.subscribe-wrap {
+	margin: 20px auto;
+}
+
+footer {
+
+	border-top: 1px solid gray;
+	margin-top: 20px;
+
+	.container {
+		width: 1000px;
+	}
+
+	.footer-banner {
+		min-height: 200px;
+		background: #52bb6f;
+	}
+
+	.span7 {
+		width: 600px;
+	}
+
+}
+
+/* plans view*/
+
+.plans-item {
+	float: left;
+	margin-bottom: 400px;
+}
+
+.fn-plans {
+
+	
+	list-style: none;
+	vertical-align: top;
+	margin-left: 262px;
+	min-height: 600px;
+
+	li {
+
+		display: inline-block;
+		height: 252px;
+		width: 274px;
+		background: #eceff1;
+		border-radius: 6px;
+		margin: 0 10px 16px 10px;
+
+		.plan-content {
+			position: relative;
+			display: block;
+			height: 100%;
+			width: 100%;
+
+
+			span {
+				position: absolute;
+				top: 45%;
+				left: 40%;
+				font-size: 20px;
+			}
+		}
+
+		&:hover {
+		background: #888;
+
+		span {
+			color: #fff;
+		}
+	}
+
+	}
+
+
+}
+
+.btn.logout {
+	vertical-align: top;
+	margin-left: 20px;
+}
+
+.user-side a {
+	text-decoration: none;
+}
+
+.user-side {
+	&.navbar-text a, &, & a {
+		color: #fff;	
+	}
+
+	padding: 10px;display: block;text-align: right;
+}
+
 .navbar-text.pull-right, .fn-logout {
 	color: #fff !important;	
 }
 
-.fn-logout {
-	padding-left: 20px;
-}
-
 .site-body {
-	margin-top: 150px;
+	margin-top: 95px;
 }
 
 .left {
@@ -58,4 +181,12 @@
 
 .w-60 {
 	width: 60%;
+}
+
+.w-1000 {
+	width: 1000px;
+}
+
+.add-milestone-form {
+	position: fixed;
 }
