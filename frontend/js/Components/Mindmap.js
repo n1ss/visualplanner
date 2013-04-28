@@ -54,17 +54,22 @@ define([
       var mindmap = this;
       var paper = this.paper;
 
-      var milestone = new Milestone(_.extend({
+      var milestone = new Milestone({
         paper: paper,
         mindmap: mindmap,
-        uuid: this.generateUUID()
-      }, options)).render();
+        uuid: this.generateUUID(),
+        title: options.title
+      }).render(options);
 
-      this.milestones.push(milestone);
+      this.milestones.push(milestone.block);
 
-      if (this.milestones.length > 1) {
-        this.connections.push(paper.connection(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1], "#34495E"));
+      if (options.noConnect !== true) {
+        if (this.milestones.length > 1) {
+          this.connections.push(paper.connection(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1], "#34495E"));
+        }
       }
+
+      return milestone;
     },
 
     /**

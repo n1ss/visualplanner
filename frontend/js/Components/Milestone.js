@@ -6,9 +6,10 @@ define([
   'backbone',
   'underscore',
 
+  'Components/Mindmap',
   'Components/Raphael/Connection'
 
-], function(App, Backbone, _) {
+], function(App, Backbone, _, Mindmap) {
   var Milestone = function(options) {
     this.options = options;
 
@@ -22,10 +23,7 @@ define([
      * Start dragger
      */
     this.dragger = function () {
-      milestone.elems.forEach(function(elem) {
-        elem.ox = elem.type == "ellipse" ? elem.attr("cx") : elem.attr("x");
-        elem.oy = elem.type == "ellipse" ? elem.attr("cy") : elem.attr("y");
-      });
+      milestone.elems.forEach(milestone.prepareElement);
 
       this.animate({"fill-opacity": .6}, 500);
     };
@@ -39,13 +37,7 @@ define([
       }
 
       milestone.elems.forEach(function(elem) {
-        if (elem.type == "ellipse") {
-          var att = {cx: elem.ox + dx, cy: elem.oy + dy};
-        } else {
-          var att = {x: elem.ox + dx, y: elem.oy + dy};
-        }
-                                           
-        elem.attr(att);
+        milestone.moveElement(elem, dx, dy, x, y, e);
       });
 
       for (var i = connections.length; i--;) {
@@ -56,7 +48,7 @@ define([
     };
 
     /**
-     * On drug drop event
+     * On drop event
      */
     this.up = function () {
       this.animate({"fill-opacity": 1}, 500);
@@ -76,17 +68,67 @@ define([
       milestone.addBlock.hide();
     };
 
-    this.draggerAdd = function() {
-      console.log('start grag new');
+    /**
+     * On start event on create new milestone
+     */
+    this.draggerAdd = function(x, y, e) {
+      if (milestone.tempPoint) {
+        return;
+      }
+
+      var stone = milestone.options.mindmap.addMilestone({
+        title: 'test',
+        noConnect: true,
+        x: milestone.block.attr('x'),
+        y: milestone.block.attr('y') + 10 - e.pageY + e.screenY
+      });
+
+      milestone.tempPoint = stone;
+      milestone.tempPoint.elems.forEach(milestone.prepareElement);
+
+      connections.push(paper.connection(milestone.block, milestone.tempPoint.block, "#34495E"));
     };
 
+    /**
+     * On move event on create new milestone
+     */
     this.moveAdd = function(dx, dy, x, y, e) {
-      console.log('move drag new');
+      milestone.tempPoint.elems.forEach(function(elem) {
+        milestone.moveElement(elem, dx, dy - 40, x, y, e);
+      });
+
+      for (var i = connections.length; i--;) {
+        paper.connection(connections[i]);
+      }
     };
 
+    /**
+     * On up event on create new milestone
+     */
     this.upAdd = function() {
-      console.log('end drag new');
+      delete milestone.tempPoint;
     };
+
+    /**
+     * Set params for prepearing animation
+     */
+    this.prepareElement = function(elem) {
+      elem.ox = elem.type == "ellipse" ? elem.attr("cx") : elem.attr("x");
+      elem.oy = elem.type == "ellipse" ? elem.attr("cy") : elem.attr("y");
+    };
+
+    /**
+     * Set params for animation
+     */
+    this.moveElement = function(elem, dx, dy, x, y, e) {
+      if (elem.type == "ellipse") {
+        var att = {cx: elem.ox + dx, cy: elem.oy + dy};
+      } else {
+        var att = {x: elem.ox + dx, y: elem.oy + dy};
+      }
+                                         
+      elem.attr(att);
+    }
   };
 
   Milestone.prototype = {
@@ -95,14 +137,19 @@ define([
      * Render milestine
      * @return {Object}
      */
-    render: function() {
+    render: function(options) {
       var paper = this.options.paper;
       var milestones = this.options.mindmap.milestones || [];
-      var x = 80, y = 5;
 
-      if (milestones.length >= 1) {
-        x = milestones[milestones.length - 1].getBBox().x;
-        y = milestones[milestones.length - 1].getBBox().y + 100;
+      if (options.x === undefined) {
+        var x = 80, y = 5;
+
+        if (milestones.length >= 1) {
+          x = milestones[milestones.length - 1].getBBox().x;
+          y = milestones[milestones.length - 1].getBBox().y + 100;
+        }
+      } else {
+        var x = options.x, y = options.y;
       }
 
       var txtStyle = {
@@ -140,7 +187,7 @@ define([
 
       this.addBlock.drag(this.moveAdd, this.draggerAdd, this.upAdd);
 
-      return this.block;
+      return this;
     }
 
   };
