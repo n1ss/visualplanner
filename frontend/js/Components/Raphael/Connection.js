@@ -172,7 +172,7 @@ define([
           task.textElem.remove();
 
         task.circleElem = this.circle(task.connectorx, task.connectory, 5).attr({fill: "#579", "stroke-width": 2});
-        task.textElem = this.text(task.connectorx + 40, task.connectory, task.text).attr({fill: "#579", "stroke-width": 2});
+        task.textElem = this.text(task.connectorx + 40, task.connectory, task.text).attr({fill: "black", "stroke-width": 2});
       }
       subtasks.newPoint.connectorx = longestLine[0] + (numSubtasks+1)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
       subtasks.newPoint.connectory = longestLine[1] + (numSubtasks+1)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
@@ -182,7 +182,7 @@ define([
       line.bg && line.bg.attr({path: path});
       line.line.attr({
         path: path,
-        "stroke-width": 2
+        "stroke-width": 3
       });
       line.subtasks = subtasks;
     } else {
