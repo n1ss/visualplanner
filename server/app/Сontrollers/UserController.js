@@ -85,54 +85,30 @@ exports.login = function (req, res, passport) {
 }
 
 exports.update = function (req, res, passport) {
-  new_password     = req.body.password;
-  current_password = req.body['check-password'];
+  var checked_pass_hashed = crypto.createHmac('sha1', req.user.salt).update(req.body['check-password']).digest('hex');
 
-  // console.log(new_password);
-  // console.log(current_password);
-
-  // console.log(req.user.hashed_password);
-  // console.log(crypto.createHmac('sha1', req.user.salt).update(current_password).digest('hex'));
-
-  if (req.user.hashed_password === crypto.createHmac('sha1', req.user.salt).update(current_password).digest('hex')) {
+  console.log(checked_pass_hashed)
+  if (req.user.hashed_password === checked_pass_hashed) {
     console.log('Password checking OK');
 
-    User.findByIdAndUpdate(req.body.id, { $set: { name: req.body.name } }, function (err) {
+    User.findByIdAndUpdate(req.body.id, { $set: {
+      name: req.body.name,
+      password: req.body.password
+    } }, function (err) {
       if (err) {
         return res.json(err);
       } else {
         return res.json({
-          status: true,
-          user: {
-            id: req.user._id,
-            name: req.body.name,
-            email: req.user.email
-          }
+          id: req.user._id,
+          name: req.body.name,
+          email: req.user.email
         });
       }
     });
-
-    if (new_password !== current_password) {
-      console.log("Change-password: ON");
-      User.findByIdAndUpdate(req.body.id, { $set: { hashed_password: crypto.createHmac('sha1', req.user.salt).update(new_password).digest('hex') } }, function (err) {
-          if (err) {
-            return res.json(err);
-          } else {
-            return res.json({
-              status: true,
-              user: {
-                id: req.user._id,
-                name: req.body.name,
-                email: req.user.email
-              }
-            });
-          }
-        });
-
-    } else {
-      console.log("Change-password: OFF");
-    }
-
+  } else {
+    res.json({
+      message: 'invalid password'
+    });
   }
   
 }
