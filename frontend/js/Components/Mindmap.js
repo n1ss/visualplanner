@@ -82,7 +82,18 @@ define([
     },
 
     addConnect: function(firstMilestone, secondMilestone) {
-      var connection = this.paper.connection(firstMilestone, secondMilestone, "#34495E");
+      var subtasks = {
+        tasks:[],
+        newPoint: {}
+      };
+      var paper = this.paper;
+      var connection = paper.connection(firstMilestone, secondMilestone, "#34495E", null, subtasks);
+      connection.line.hover(function() {
+        subtasks.newPoint.pointer =
+            paper.circle(subtasks.newPoint.connectorx, subtasks.newPoint.connectory, 5).attr({fill: "#000", "stroke-width": 2});
+      }, function() {
+        subtasks.newPoint.pointer.remove();
+      }, connection, connection);
 
       this.connections.push(connection);
     },
