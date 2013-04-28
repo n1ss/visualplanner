@@ -47,10 +47,13 @@ define([
           name: form.$.find('#plan-name').val()
         });
 
-        plan.save();
+        plan.save(null, {
+          success: function() {
+            this.$('.fn-plans').append(tmpl.render('User/PlanItem', plan.toJSON()));
+          }
+        }, this);
 
         this.$('#plan-name').val('');
-        this.$('.fn-plans').append(tmpl.render('User/PlanItem', plan.toJSON()));
       }
     }
   });

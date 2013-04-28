@@ -6,6 +6,7 @@ define([
   'backbone',
   'underscore',
 
+  'Models/Milestone',
   'Components/Mindmap',
   'Components/Raphael/Connection'
 
@@ -13,7 +14,7 @@ define([
   var Milestone = function(options) {
     this.options = options;
 
-    var uuid = this.options.uuid;
+    this.milestoneModel = new App.Models.Milestone();
 
     var milestone = this;
     var paper = this.options.paper;
@@ -52,6 +53,7 @@ define([
      */
     this.up = function () {
       this.animate({"fill-opacity": 1}, 500);
+      milestone.milestoneModel.save();
     };
 
     /**
@@ -80,7 +82,7 @@ define([
         title: 'test',
         noConnect: true,
         x: milestone.block.attr('x'),
-        y: milestone.block.attr('y') + 10 - e.pageY + e.screenY
+        y: milestone.block.attr('y') - 10 - e.pageY + e.screenY
       });
 
       milestone.tempPoint = stone;
@@ -94,7 +96,7 @@ define([
      */
     this.moveAdd = function(dx, dy, x, y, e) {
       milestone.tempPoint.elems.forEach(function(elem) {
-        milestone.moveElement(elem, dx, dy - 40, x, y, e);
+        milestone.moveElement(elem, dx, dy, x, y, e);
       });
 
       for (var i = connections.length; i--;) {
@@ -186,6 +188,8 @@ define([
       this.label.hover(this.hover, this.over);
 
       this.addBlock.drag(this.moveAdd, this.draggerAdd, this.upAdd);
+
+      this.milestoneModel.save();
 
       return this;
     }

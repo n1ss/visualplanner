@@ -48,6 +48,11 @@ define([
           opacity: 0.5
         });
       }
+
+      $("text").each(function(el, index){
+        this.setAttribute("y" ,this.getBBox().y + 125);
+
+      })
     },
 
     addMilestone: function(options) {
@@ -57,7 +62,6 @@ define([
       var milestone = new Milestone({
         paper: paper,
         mindmap: mindmap,
-        uuid: this.generateUUID(),
         title: options.title
       }).render(options);
 
@@ -100,14 +104,6 @@ define([
 
     removeConnect: function(id) {
 
-    },
-
-    generateUUID: function(){
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-      }
-
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
   };
 

@@ -24,10 +24,7 @@ exports.create = function(req, res) {
         userPlan.save(function (err) {
             if (err) return res.json(500, err);
 
-            return res.json({
-                status: true,
-                plan: plan
-            });
+            return res.json(plan);
         });
     }
   });

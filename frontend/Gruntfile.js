@@ -48,8 +48,17 @@ module.exports = function(grunt) {
             backbone: '../vendors/backbone/backbone-min',
             handlebars: '../vendors/handlebars.js/dist/handlebars',
             tmpl: 'Classes/Template',
+            eve: '../libs/eve/eve',
+            raphael: '../vendors/raphael/raphael-min',
           },
           shim: {
+            'eve': {
+              exports: 'eve'
+            },
+            'raphael': {
+              deps: ['eve'],
+              exports: 'Raphael'
+            },
             'underscore': {
               exports: '_'
             },
@@ -61,7 +70,7 @@ module.exports = function(grunt) {
               exports: 'Handlebars'
             }
           },
-          name: 'main',
+          name: '../js/main',
           out: 'dist/concated.js'
         }
       }
