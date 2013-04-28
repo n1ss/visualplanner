@@ -1,7 +1,7 @@
 /**
  * Application namespace, global application object
  */
-define([,
+define([
 ],
 function() {
   return {
