@@ -3,6 +3,7 @@
  */
 var mongoose = require('mongoose')
     async = require('async')
+  , crypto = require('crypto')
   , User = mongoose.model('User')
 
 /**
@@ -84,22 +85,55 @@ exports.login = function (req, res, passport) {
 }
 
 exports.update = function (req, res, passport) {
-  // console.log(req);
-  User.findByIdAndUpdate(req.body.id, { $set: { name: req.body.name } }, function (err) {
-    if (err) {
-      return res.json(err);
-    } else {   
-      return res.json({
-        status: true,
-        user: {
-          id: req.user._id,
-          name: req.body.name,
-          email: req.user.email
-        }
-      });
-    }
-  });
+  new_password     = req.body.password;
+  current_password = req.body['check-password'];
 
+  // console.log(new_password);
+  // console.log(current_password);
+
+  // console.log(req.user.hashed_password);
+  // console.log(crypto.createHmac('sha1', req.user.salt).update(current_password).digest('hex'));
+
+  if (req.user.hashed_password === crypto.createHmac('sha1', req.user.salt).update(current_password).digest('hex')) {
+    console.log('Password checking OK');
+
+    User.findByIdAndUpdate(req.body.id, { $set: { name: req.body.name } }, function (err) {
+      if (err) {
+        return res.json(err);
+      } else {
+        return res.json({
+          status: true,
+          user: {
+            id: req.user._id,
+            name: req.body.name,
+            email: req.user.email
+          }
+        });
+      }
+    });
+
+    if (new_password !== current_password) {
+      console.log("Change-password: ON");
+      User.findByIdAndUpdate(req.body.id, { $set: { hashed_password: crypto.createHmac('sha1', req.user.salt).update(new_password).digest('hex') } }, function (err) {
+          if (err) {
+            return res.json(err);
+          } else {
+            return res.json({
+              status: true,
+              user: {
+                id: req.user._id,
+                name: req.body.name,
+                email: req.user.email
+              }
+            });
+          }
+        });
+
+    } else {
+      console.log("Change-password: OFF");
+    }
+
+  }
   
 }
 
