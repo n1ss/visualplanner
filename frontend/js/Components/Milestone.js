@@ -86,7 +86,7 @@ define([
       milestone.tempPoint = stone;
       milestone.tempPoint.elems.forEach(milestone.prepareElement);
 
-      milestone.addConnect(paper.connection(milestone.block, milestone.tempPoint.block);
+      milestone.options.mindmap.addConnect(milestone.block, milestone.tempPoint.block);
     };
 
     /**
