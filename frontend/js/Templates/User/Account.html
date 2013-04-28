@@ -7,12 +7,12 @@
 
 			<div class="control-group">
 				<label for="account-name">Name</label>
-				<input type="text" name="name" id="account-name" class="send" data-valid="required">
+				<input type="text" name="name" id="account-name" class="send" data-valid="required" value="{{this.name}}">
 			</div>
 
 			<div class="control-group">
 				<label for="reg-email">E-mail</label>
-				<input type="text" name="email" id="reg-email" class="send" data-valid="email required">
+				<input type="text" name="email" id="reg-email" class="send" data-valid="email required" value="{{this.email}}" readonly="readonly">
 			</div>
 
 			<div class="control-group">
@@ -27,7 +27,7 @@
 
 			<div class="control-group">
 				<label for="account-check-password">Old password</label>
-				<input type="password" name="check-password" id="account-check-password" data-valid="password">
+				<input type="password" name="check-password" id="account-check-password" class="send" data-valid="password">
 			</div>
 
 		</div>
