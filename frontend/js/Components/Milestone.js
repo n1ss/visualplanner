@@ -18,7 +18,6 @@ define([
 
     this.dragger = function () {
       milestoune.elems.forEach(function(elem) {
-        // Original coords for main element
         elem.ox = elem.type == "ellipse" ? elem.attr("cx") : elem.attr("x");
         elem.oy = elem.type == "ellipse" ? elem.attr("cy") : elem.attr("y");
       });
@@ -28,9 +27,12 @@ define([
 
     this.move = function (dx, dy, x, y, e) {
       milestoune.elems.forEach(function(elem) {
-        // Move main element
-        var att = elem.type == "ellipse" ? {cx: elem.ox + dx, cy: elem.oy + dy} : 
-                                           {x: elem.ox + dx, y: elem.oy + dy};
+        if (elem.type == "ellipse") {
+          var att = {cx: elem.ox + dx, cy: elem.oy + dy};
+        } else {
+          var att = {x: elem.ox + dx, y: elem.oy + dy};
+        }
+                                           
         elem.attr(att);
       });
 
@@ -55,17 +57,18 @@ define([
     render: function() {
       var paper = this.options.paper;
 
-      var block = paper.rect(0, 0, 230, 50, 10).attr({
-        "fill": "#2ECC71",
+      var block = paper.rect(0, 0, 230, 50, 5).attr({
+        "fill": "#53bb6f",
         "fill-opacity": 1,
-        "stroke-width": 0,
+        "stroke": "#449158",
+        "stroke-width": 2,
         "cursor": "move"
       });
-      var secondTitle = paper.text(110, 19, "Milestone").attr({
-        font: '17px Arial',
+      var title = paper.text(40, 15, "Milestone").attr({
+        font: '13px Arial',
         fill: "#fff"
       });
-      var title = paper.text(108, 37, "22 September 2008").attr({
+      var secondTitle = paper.text(60, 37, "22 September 2008").attr({
         font: '10px Arial',
         fill: "#fff"
       });
