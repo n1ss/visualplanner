@@ -97,7 +97,7 @@ define([
       }, connection, connection);
 
       connection.line.click(function() {
-        connection.subtasks.tasks.push({});
+        connection.subtasks.tasks.push({text: 'Sub task #' + connection.subtasks.tasks.length});
         paper.connection(connection);
       });
 

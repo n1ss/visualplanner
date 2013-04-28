@@ -161,13 +161,18 @@ define([
       // Subtasks start points
       var numSubtasks = subtasks.tasks.length;
       for (var i = 0; i < numSubtasks; i++) {
-        subtasks.tasks[i].connectorx = longestLine[0] + (i + 1)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
-        subtasks.tasks[i].connectory = longestLine[1] + (i + 1)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
+        var task = subtasks.tasks[i];
+        task.connectorx = longestLine[0] + (i + 1)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
+        task.connectory = longestLine[1] + (i + 1)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
 
-        if (subtasks.tasks[i].circle)
-          subtasks.tasks[i].circle.remove();
+        if (task.circleElem)
+          task.circleElem.remove();
 
-        subtasks.tasks[i].circle = this.circle(subtasks.tasks[i].connectorx, subtasks.tasks[i].connectory, 5).attr({fill: "#579", "stroke-width": 2});
+        if (task.textElem)
+          task.textElem.remove();
+
+        task.circleElem = this.circle(task.connectorx, task.connectory, 5).attr({fill: "#579", "stroke-width": 2});
+        task.textElem = this.text(task.connectorx + 40, task.connectory, task.text).attr({fill: "#579", "stroke-width": 2});
       }
       subtasks.newPoint.connectorx = longestLine[0] + (numSubtasks+1)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
       subtasks.newPoint.connectory = longestLine[1] + (numSubtasks+1)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
