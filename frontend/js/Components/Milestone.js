@@ -34,6 +34,10 @@ define([
      * On move event
      */
     this.move = function (dx, dy, x, y, e) {
+      if (this.data('noMove')) {
+        return;
+      }
+
       milestone.elems.forEach(function(elem) {
         if (elem.type == "ellipse") {
           var att = {cx: elem.ox + dx, cy: elem.oy + dy};
@@ -70,7 +74,19 @@ define([
      */
     this.over = function() {
       milestone.addBlock.hide();
-    }
+    };
+
+    this.draggerAdd = function() {
+      console.log('start grag new');
+    };
+
+    this.moveAdd = function(dx, dy, x, y, e) {
+      console.log('move drag new');
+    };
+
+    this.upAdd = function() {
+      console.log('end drag new');
+    };
   };
 
   Milestone.prototype = {
@@ -107,7 +123,7 @@ define([
         "stroke": "#87989a",
         "cursor": "move",
         "stroke-width": 2
-      }).hide();
+      }).hide().data("noMove", true);
       this.title = paper.text(x + 10, y + 15, this.options.title).attr(txtStyle).attr({
         'font': '13px Arial'
       });
@@ -117,10 +133,12 @@ define([
 
       this.elems = [this.title, this.secondTitle, this.block, this.addBlock];
 
-      label = paper.set.apply(this, this.elems);
+      this.label = paper.set.apply(this, this.elems);
       
-      label.drag(this.move, this.dragger, this.up);
-      label.hover(this.hover, this.over);
+      this.label.drag(this.move, this.dragger, this.up);
+      this.label.hover(this.hover, this.over);
+
+      this.addBlock.drag(this.moveAdd, this.draggerAdd, this.upAdd);
 
       return this.block;
     }
