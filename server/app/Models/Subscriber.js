@@ -4,7 +4,8 @@ var mongoose = require('mongoose')
   , Schema = mongoose.Schema
 
 var SubscriberSchema = new Schema({
-    email: { type: String, unique: true }
+    email: { type: String, unique: true },
+    date: { type: Date, default: Date.now }
 });
 
 // validations
