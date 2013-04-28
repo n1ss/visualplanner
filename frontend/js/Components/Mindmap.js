@@ -6,56 +6,67 @@ define([
   'backbone',
   'underscore',
 
-  'Components/Milestone'
+  'Components/Milestone',
+  'Components/Raphael/Connection'
 
 ], function(App, Backbone, _, Milestone) {
+
   var Mindmap = function(id) {
-    if (typeof Mindmap.instance === 'object') {
-      return Mindmap.instance;
-    }
-
-    Mindmap.instance = this;
-
     // options
-    this.milestones = {};
+    this.milestones = [];
+    this.connections = [];
     this.timeline = {};
     this.canvas = $('#' + id);
-    this.paper = Raphael(id, canv.width(), 800);
+    this.paper = new Raphael(id, this.canvas.width(), 800);
   };
 
-  var proto = Mindmap.prototype;
+  Mindmap.prototype = {
 
-  _.extend(proto, Backbone.Events);
+    /**
+     * Render mind map
+     */
+    render: function() {
 
-  /**
-   * Render mind map
-   */
-  proto.render = function() {
+    },
 
+    /**
+     * Give objects from server
+     */
+    fetch: function() {
+
+    },
+
+    addMilestone: function(options) {
+      var mindmap = this;
+      var paper = this.paper;
+
+      var milestone = new Milestone({
+        paper: paper,
+        mindmap: mindmap
+      }).render();
+
+      this.milestones.push(milestone);
+
+      if (this.milestones.length > 1) {
+        this.connections.push(paper.connection(this.milestones[this.milestones.length - 1], this.milestones[this.milestones.length - 2], "#34495E"));
+      }
+    },
+
+    removeMilestone: function(id) {
+
+    },
+
+    addConnect: function(firstMilestone, secondMilestone) {
+
+    },
+
+    removeConnect: function(id) {
+
+    }
   };
 
-  /**
-   * Give objects from server
-   */
-  proto.fetch = function() {
 
-  };
+  _.extend(Mindmap.prototype, Backbone.Events);
 
-  proto.addMilestone = function(options) {
-
-  };
-
-  proto.removeMilestone = function(id) {
-
-  };
-
-  proto.addConnect = function(firstMilestone, secondMilestone) {
-
-  };
-
-  proto.removeConnect = function(id) {
-
-  };
-
-  return new Mindmap();
+  return Mindmap;
 });

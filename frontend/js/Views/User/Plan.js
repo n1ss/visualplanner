@@ -10,23 +10,34 @@ define([
   var Plan = App.Views.BaseView.extend({
 
     events: {
-      'submit .add-milestone': 'addMilestone'
+      'submit .fn-add-milestone': 'addMilestone'
     },
 
     initialize: function() {
+
     },
 
     render: function() {
       this.$el.html(tmpl.render('User/Plan'));
 
+      var plan = this;
+
       require([
         'raphael'
       ],
       function() {
-        require(['Components/Map']);
+        require(['Components/Mindmap'], function(Mindmap) {
+          plan.mindmap = new Mindmap('plan-view');
+        });
       });
 
       return this;
+    },
+
+    addMilestone: function(e) {
+      e.preventDefault();
+
+      this.mindmap.addMilestone();
     }
   });
 
