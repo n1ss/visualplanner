@@ -12,12 +12,14 @@ define([
   var Milestone = function(options) {
     this.options = options;
 
-    var milestoune = this;
+    var uuid = this.options.uuid;
+
+    var milestone = this;
     var paper = this.options.paper;
     var connections = this.options.mindmap.connections;
 
     this.dragger = function () {
-      milestoune.elems.forEach(function(elem) {
+      milestone.elems.forEach(function(elem) {
         elem.ox = elem.type == "ellipse" ? elem.attr("cx") : elem.attr("x");
         elem.oy = elem.type == "ellipse" ? elem.attr("cy") : elem.attr("y");
       });
@@ -26,7 +28,7 @@ define([
     };
 
     this.move = function (dx, dy, x, y, e) {
-      milestoune.elems.forEach(function(elem) {
+      milestone.elems.forEach(function(elem) {
         if (elem.type == "ellipse") {
           var att = {cx: elem.ox + dx, cy: elem.oy + dy};
         } else {
