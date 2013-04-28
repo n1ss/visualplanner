@@ -7,7 +7,7 @@ define([
   'underscore'
 
 ], function(App, Backbone, _) {
-  Raphael.fn.connection = function (obj1, obj2, line, bg) {
+  Raphael.fn.connection = function (obj1, obj2, line, bg, subtasks) {
     if (obj1.line && obj1.from && obj1.to) {
       line = obj1;
       obj1 = line.from;
@@ -124,6 +124,36 @@ define([
           "A", radius, radius, 0, 0, 1, fx, fy - height + radius ,
           "L", fx, fy
         ];
+      }
+    }
+
+    if (numSubtasks) {
+      // calculating line lengths
+      var px, py, longestLine;
+      path.forEach(function(el, i){
+        if (el === 'M') {
+          px = path[i+1]; py = path[i+2]
+
+        } else if (el === 'A') {
+          px = path[i+6]; py = path[i+7]
+
+        } else if (el === 'L') {
+          var cx = path[i+1],
+              cy = path[i+2],
+              lineLength = Math.sqrt( (px - cx)*(px - cx) + (py - cy)*(py - cy) );
+
+          if (!longestLine || longestLine[4] < lineLength)
+            longestLine = [px, py, cx, cy, lineLength];
+
+          px = cx; py = cy;
+        }
+      });
+
+      // Subtasks start points
+      var numSubtasks = subtasks.length;
+      for (var i = 0; i < numSubtasks; i++) {
+        subtasks[i].connectorx = longestLine[0] + (i + 1)*(longestLine[2] - longestLine[0])/(numSubtasks + 1);
+        subtasks[i].connectory = longestLine[1] + (i + 1)*(longestLine[3] - longestLine[1])/(numSubtasks + 1);
       }
     }
 
