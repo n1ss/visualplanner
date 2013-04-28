@@ -59,20 +59,30 @@ define([
     render: function() {
       var paper = this.options.paper;
 
-      var block = paper.rect(0, 0, 230, 50, 5).attr({
+      var x = 80, y = 5;
+
+      var milestones = this.options.mindmap.milestones || [];
+
+
+
+      if(milestones.length > 1) {
+        x = milestones[milestones.length - 1].getBBox().x;
+        y = milestones[milestones.length - 1].getBBox().y + 100;
+      }
+
+      var block = paper.rect(x, y, 230, 50, 5).attr({
         "fill": "#53bb6f",
         "fill-opacity": 1,
         "stroke": "#449158",
         "stroke-width": 2,
         "cursor": "move"
       });
-      console.log(this.options);
-      var title = paper.text(10, 15, this.options.title).attr({
+      var title = paper.text(x + 10, y + 15, this.options.title).attr({
         'text-anchor': 'start',
         'font': '13px Arial',
         'fill': "#fff"
       });
-      var secondTitle = paper.text(12, 37, "22 September 2008").attr({
+      var secondTitle = paper.text(x + 12, y + 37, "22 September 2008").attr({
         'text-anchor': 'start',
         'font': '10px Arial',
         'fill': "#fff"
