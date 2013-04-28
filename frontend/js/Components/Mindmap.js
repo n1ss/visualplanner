@@ -82,7 +82,9 @@ define([
     },
 
     addConnect: function(firstMilestone, secondMilestone) {
-      this.connections.push(this.paper.connection(firstMilestone, secondMilestone, "#34495E"));
+      var connection = this.paper.connection(firstMilestone, secondMilestone, "#34495E");
+
+      this.connections.push(connection);
     },
 
     removeConnect: function(id) {
