@@ -3,7 +3,7 @@
 var mongoose = require('mongoose')
   , Schema = mongoose.Schema
   , crypto = require('crypto')
-  , authTypes = ['twitter', 'google']
+  , authTypes = ['twitter', 'google'];
 
 var UserSchema = new Schema({
     email: { type: String, unique: true }

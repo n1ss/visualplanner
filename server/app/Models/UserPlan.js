@@ -6,7 +6,7 @@ var mongoose = require('mongoose')
 var UserPlanSchema = new Schema({
     user: { type : Schema.ObjectId, ref : 'User' }
     , plan: { type : Schema.ObjectId, ref : 'Plan' }
-})
+});
 
 /*
 UserPlanSchema

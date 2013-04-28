@@ -26,7 +26,7 @@ define([
     this.dragger = function () {
       milestone.elems.forEach(milestone.prepareElement);
 
-      this.animate({"fill-opacity": .6}, 500);
+      this.animate({"fill-opacity": 0.6}, 500);
     };
 
     /**
@@ -53,7 +53,14 @@ define([
      */
     this.up = function () {
       this.animate({"fill-opacity": 1}, 500);
-      milestone.milestoneModel.save();
+      milestone.milestoneModel.save({
+        title: milestone.options.title,
+        description: "",
+        position: {
+          x: milestone.addBlock.getBBox().x,
+          y: milestone.addBlock.getBBox().y
+        }
+      });
     };
 
     /**
@@ -189,7 +196,13 @@ define([
 
       this.addBlock.drag(this.moveAdd, this.draggerAdd, this.upAdd);
 
-      this.milestoneModel.save();
+      this.milestoneModel.save({
+        title: this.options.title,
+        description: "",
+        position: {
+          x: this.addBlock.getBBox().x,
+          y: this.addBlock.getBBox().y}
+      });
 
       return this;
     }

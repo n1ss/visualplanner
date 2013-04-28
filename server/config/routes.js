@@ -27,6 +27,12 @@ module.exports = function(app, passport, auth) {
   app.post('/api/plan', auth.requiresLogin, PlanController.create);
   app.delete('/api/plan', auth.requiresLogin, PlanController.delete);
 
+  //Milestone controller
+  var MilestoneController = require('../app/Сontrollers/MilestoneController');
+  app.post('/api/milestone', auth.requiresLogin, MilestoneController.create);
+  app.put('/api/milestone', auth.requiresLogin, MilestoneController.put);
+  app.delete('/api/milestone', auth.requiresLogin, MilestoneController.delete);
+
   var IndexController = require('../app/Сontrollers/IndexController');
 
   // Site routs
