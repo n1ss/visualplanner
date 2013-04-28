@@ -63,10 +63,8 @@ define([
 
       this.milestones.push(milestone.block);
 
-      if (options.noConnect !== true) {
-        if (this.milestones.length > 1) {
-          this.connections.push(paper.connection(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1], "#34495E"));
-        }
+      if (options.noConnect !== true && this.milestones.length > 1) {
+        this.addConnect(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1]);
       }
 
       return milestone;
@@ -84,7 +82,9 @@ define([
     },
 
     addConnect: function(firstMilestone, secondMilestone) {
+      var connection = this.paper.connection(firstMilestone, secondMilestone, "#34495E");
 
+      this.connections.push(connection);
     },
 
     removeConnect: function(id) {
