@@ -109,10 +109,10 @@ define([
         "stroke-width": 2
       }).hide();
       this.title = paper.text(x + 10, y + 15, this.options.title).attr(txtStyle).attr({
-        'font': '13px Arial',
+        'font': '13px Arial'
       });
       this.secondTitle = paper.text(x + 12, y + 37, "22 September 2008").attr(txtStyle).attr({
-        'font': '10px Arial',
+        'font': '10px Arial'
       });
 
       this.elems = [this.title, this.secondTitle, this.block, this.addBlock];
