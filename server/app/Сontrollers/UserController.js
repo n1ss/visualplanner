@@ -84,34 +84,23 @@ exports.login = function (req, res, passport) {
 }
 
 exports.update = function (req, res, passport) {
-  // var user = new User(req.body);
-  // user.provider = 'local';
-  // user.update(function (err) {
-  //   if (err) {
-  //     if (err.code === 11000) {
-  //       return res.json({
-  //         message: 'Email is already in use'
-  //       });
-  //     } else {
-  //       return res.json(err);
-  //     }
-  //   }
+  // console.log(req);
+  User.findByIdAndUpdate(req.body.id, { $set: { name: req.body.name } }, function (err) {
+    if (err) {
+      return res.json(err);
+    } else {   
+      return res.json({
+        status: true,
+        user: {
+          id: req.user._id,
+          name: req.body.name,
+          email: req.user.email
+        }
+      });
+    }
+  });
 
-  //   req.logIn(user, function(err) {
-  //     if (err) return res.json(500, err);
-
-  //     res.json({
-  //       status: true,
-  //       user: {
-  //         id: user._id,
-  //         name: user.name,
-  //         email: user.email
-  //       }
-  //     });
-  //   });
-  // });
-
-
+  
 }
 
 /**
