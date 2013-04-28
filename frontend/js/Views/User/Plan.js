@@ -42,9 +42,12 @@ define([
       var form = new Form($(e.currentTarget));
 
       if (form.checkValid()) {
-        this.mindmap.addMilestone();
-      }
+        this.mindmap.addMilestone({
+          title: form.$.find('#mailstone-name').val()
+        });
 
+        form.$.find('#mailstone-name').val('');
+      }
     }
   });
 
