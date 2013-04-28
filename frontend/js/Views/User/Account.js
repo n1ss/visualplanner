@@ -31,9 +31,7 @@ define([
       var form = new Form(this.$('.fn-account-form'));
 
       if (form.checkValid()) {
-        User.set(form.data);
-
-        User.save();
+        User.save(form.data);
       }
     }
 

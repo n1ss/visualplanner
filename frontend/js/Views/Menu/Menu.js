@@ -20,6 +20,9 @@ define([
 
     initialize: function() {
       User.on({
+        change: function() {
+          this.renderUserPanel();
+        },
         logged: function() {
           this.renderUserPanel();
         },
