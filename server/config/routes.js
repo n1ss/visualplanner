@@ -30,6 +30,7 @@ module.exports = function(app, passport, auth) {
   //Milestone controller
   var MilestoneController = require('../app/Сontrollers/MilestoneController');
   app.post('/api/milestone', auth.requiresLogin, MilestoneController.create);
+  app.get('/api/milestone', auth.requiresLogin, MilestoneController.get);
   app.put('/api/milestone', auth.requiresLogin, MilestoneController.put);
   app.delete('/api/milestone', auth.requiresLogin, MilestoneController.delete);
 
