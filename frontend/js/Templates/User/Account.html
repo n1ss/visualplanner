@@ -1,7 +1,7 @@
 <div class="login-form">
-	<p>Edit your profile</p>
-	<form action="" class="fn-account-form">
-		
+	<h2>Edit your profile</h2>
+	<hr>
+	<form action="/api/user" class="fn-account-form">
 		<div class="messages"></div>
 		<div class="content">
 
@@ -27,11 +27,10 @@
 
 			<div class="control-group">
 				<label for="account-check-password">Old password</label>
-				<input type="password" name="check-password" id="account-check-password" class="send" data-valid="password">
+				<input type="password" name="check-password" id="account-check-password" class="send" data-valid="password required">
 			</div>
-
 		</div>
-
+		<hr>
 		<input type="submit" value="Update profile" class="btn">
 	</form>
 </div>
