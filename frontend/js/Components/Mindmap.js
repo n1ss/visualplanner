@@ -36,18 +36,15 @@ define([
     },
 
     addMilestone: function(options) {
-      var mindmap = this;
-      var paper = this.paper;
-
       var milestone = new Milestone({
-        paper: paper,
-        mindmap: mindmap
+        paper: this.paper,
+        mindmap: this
       }).render();
 
       this.milestones.push(milestone);
 
       if (this.milestones.length > 1) {
-        this.connections.push(paper.connection(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1], "#34495E"));
+        this.addConnect(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1]);
       }
     },
 
@@ -56,7 +53,7 @@ define([
     },
 
     addConnect: function(firstMilestone, secondMilestone) {
-
+        this.connections.push(this.paper.connection(firstMilestone, secondMilestone, "#2e616b"));
     },
 
     removeConnect: function(id) {

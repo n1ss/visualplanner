@@ -57,17 +57,18 @@ define([
     render: function() {
       var paper = this.options.paper;
 
-      var block = paper.rect(0, 0, 230, 50, 10).attr({
-        "fill": "#2ECC71",
+      var block = paper.rect(0, 0, 230, 50, 5).attr({
+        "fill": "#53bb6f",
         "fill-opacity": 1,
-        "stroke-width": 0,
+        "stroke": "#449158",
+        "stroke-width": 2,
         "cursor": "move"
       });
-      var secondTitle = paper.text(110, 19, "Milestone").attr({
-        font: '17px Arial',
+      var title = paper.text(40, 15, "Milestone").attr({
+        font: '13px Arial',
         fill: "#fff"
       });
-      var title = paper.text(108, 37, "22 September 2008").attr({
+      var secondTitle = paper.text(60, 37, "22 September 2008").attr({
         font: '10px Arial',
         fill: "#fff"
       });
