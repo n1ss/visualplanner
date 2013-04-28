@@ -31,7 +31,6 @@ define([
     },
 
     addTimeline: function (days) {
-
       var daysCount = days || 31;
 
       for (var i = 0; i < daysCount; i += 1) {
@@ -51,28 +50,28 @@ define([
       }
     },
 
-    /**
-     * Give objects from server
-     */
-    fetch: function() {
-
-    },
-
     addMilestone: function(options) {
       var mindmap = this;
       var paper = this.paper;
 
-      var milestone = new Milestone({
+      var milestone = new Milestone(_.extend({
         paper: paper,
         mindmap: mindmap,
         uuid: this.generateUUID()
-      }).render();
+      }, options)).render();
 
       this.milestones.push(milestone);
 
       if (this.milestones.length > 1) {
         this.connections.push(paper.connection(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1], "#34495E"));
       }
+    },
+
+    /**
+     * Give objects from server
+     */
+    fetch: function() {
+
     },
 
     removeMilestone: function(id) {

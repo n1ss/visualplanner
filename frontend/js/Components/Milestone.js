@@ -66,13 +66,16 @@ define([
         "stroke-width": 2,
         "cursor": "move"
       });
-      var title = paper.text(40, 15, "Milestone").attr({
-        font: '13px Arial',
-        fill: "#fff"
+      console.log(this.options);
+      var title = paper.text(10, 15, this.options.title).attr({
+        'text-anchor': 'start',
+        'font': '13px Arial',
+        'fill': "#fff"
       });
-      var secondTitle = paper.text(60, 37, "22 September 2008").attr({
-        font: '10px Arial',
-        fill: "#fff"
+      var secondTitle = paper.text(12, 37, "22 September 2008").attr({
+        'text-anchor': 'start',
+        'font': '10px Arial',
+        'fill': "#fff"
       });
 
       this.elems = [title, secondTitle, block];
