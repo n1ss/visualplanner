@@ -6,8 +6,7 @@ define([
   'backbone',
   'underscore',
 
-  'Components/Milestone',
-  'Components/Raphael/Connection'
+  'Components/Milestone'
 
 ], function(App, Backbone, _, Milestone) {
 
@@ -48,7 +47,7 @@ define([
       this.milestones.push(milestone);
 
       if (this.milestones.length > 1) {
-        this.connections.push(paper.connection(this.milestones[this.milestones.length - 1], this.milestones[this.milestones.length - 2], "#34495E"));
+        this.connections.push(paper.connection(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1], "#34495E"));
       }
     },
 

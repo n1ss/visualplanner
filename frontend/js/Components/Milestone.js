@@ -4,7 +4,9 @@
 define([
   'app',
   'backbone',
-  'underscore'
+  'underscore',
+
+  'Components/Raphael/Connection'
 
 ], function(App, Backbone, _) {
   var Milestone = function(options) {
@@ -53,7 +55,7 @@ define([
     render: function() {
       var paper = this.options.paper;
 
-      var title = paper.rect(0, 0, 180, 40, 5).attr({
+      var block = paper.rect(0, 0, 230, 50, 10).attr({
         "fill": "#2ECC71",
         "fill-opacity": 1,
         "stroke-width": 0,
@@ -63,7 +65,7 @@ define([
         font: '12px Helvetica, Arial',
         fill: "#fff"
       });
-      var block = paper.text(60, 27, "22 September 2008").attr({
+      var title = paper.text(60, 27, "22 September 2008").attr({
         font: '12px Helvetica, Arial',
         fill: "red"
       });
