@@ -86,7 +86,7 @@ define([
       milestone.tempPoint = stone;
       milestone.tempPoint.elems.forEach(milestone.prepareElement);
 
-      connections.push(paper.connection(milestone.block, milestone.tempPoint.block, "#34495E"));
+      milestone.addConnect(paper.connection(milestone.block, milestone.tempPoint.block);
     };
 
     /**
