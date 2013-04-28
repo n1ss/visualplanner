@@ -7,10 +7,7 @@ define([
   'underscore'
 
 ], function(App, Backbone, _) {
-  Raphael.fn.connection = function (obj1, obj2, line, bg, subtasks) {
-    if (subtasks)
-      this.subtasks = subtasks;
-
+  Raphael.fn.connection = function (obj1, obj2, line, bg) {
     if (obj1.line && obj1.from && obj1.to) {
       line = obj1;
       obj1 = line.from;
@@ -130,35 +127,51 @@ define([
       }
     }
 
-    // calculating line lengths
-    var px, py, longestLine;
-    path.forEach(function(el, i){
-      if (el === 'M') {
-        px = path[i+1]; py = path[i+2]
-
-      } else if (el === 'A') {
-        px = path[i+6]; py = path[i+7]
-
-      } else if (el === 'L') {
-        var cx = path[i+1],
-            cy = path[i+2],
-            lineLength = Math.sqrt( (px - cx)*(px - cx) + (py - cy)*(py - cy) );
-
-        if (!longestLine || longestLine[4] < lineLength)
-          longestLine = [px, py, cx, cy, lineLength];
-
-        px = cx; py = cy;
-      }
-    });
-
-    // Subtasks start points
-    var numSubtasks = this.subtasks.tasks.length;
-    for (var i = 0; i < numSubtasks; i++) {
-      subtasks.tasks[i].connectorx = longestLine[0] + (i + 1)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
-      subtasks.tasks[i].connectory = longestLine[1] + (i + 1)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
+    var subtasks = line.subtasks
+    if (!subtasks) {
+      subtasks = {
+        tasks:[],
+        newPoint: {}
+      };
+      line.subtasks = subtasks;
     }
-    this.subtasks.newPoint.connectorx = longestLine[0] + (numSubtasks)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
-    this.subtasks.newPoint.connectory = longestLine[1] + (numSubtasks)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
+
+    if (path) {
+      // calculating line lengths
+      var px, py, longestLine;
+      path.forEach(function(el, i){
+        if (el === 'M') {
+          px = path[i+1]; py = path[i+2]
+
+        } else if (el === 'A') {
+          px = path[i+6]; py = path[i+7]
+
+        } else if (el === 'L') {
+          var cx = path[i+1],
+              cy = path[i+2],
+              lineLength = Math.sqrt( (px - cx)*(px - cx) + (py - cy)*(py - cy) );
+
+          if (!longestLine || longestLine[4] < lineLength)
+            longestLine = [px, py, cx, cy, lineLength];
+
+          px = cx; py = cy;
+        }
+      });
+
+      // Subtasks start points
+      var numSubtasks = subtasks.tasks.length;
+      for (var i = 0; i < numSubtasks; i++) {
+        subtasks.tasks[i].connectorx = longestLine[0] + (i + 1)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
+        subtasks.tasks[i].connectory = longestLine[1] + (i + 1)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
+
+        if (subtasks.tasks[i].circle)
+          subtasks.tasks[i].circle.remove();
+
+        subtasks.tasks[i].circle = this.circle(subtasks.tasks[i].connectorx, subtasks.tasks[i].connectory, 5).attr({fill: "#579", "stroke-width": 2});
+      }
+      subtasks.newPoint.connectorx = longestLine[0] + (numSubtasks+1)*(longestLine[2] - longestLine[0])/(numSubtasks + 2);
+      subtasks.newPoint.connectory = longestLine[1] + (numSubtasks+1)*(longestLine[3] - longestLine[1])/(numSubtasks + 2);
+    }
 
     if (line && line.line) {
       line.bg && line.bg.attr({path: path});
@@ -166,13 +179,15 @@ define([
         path: path,
         "stroke-width": 2
       });
+      line.subtasks = subtasks;
     } else {
       var color = typeof line == "string" ? line : "#000";
       return {
         bg: bg && bg.split && this.path(path).attr({stroke: bg.split("|")[0], fill: "none", "stroke-width": bg.split("|")[1] || 2}),
         line: this.path(path).attr({stroke: color, fill: "none"}),
         from: obj1,
-        to: obj2
+        to: obj2,
+        subtasks: subtasks
       };
     }
   };

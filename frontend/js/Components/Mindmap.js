@@ -86,18 +86,20 @@ define([
     },
 
     addConnect: function(firstMilestone, secondMilestone) {
-      var subtasks = {
-        tasks:[],
-        newPoint: {}
-      };
       var paper = this.paper;
-      var connection = paper.connection(firstMilestone, secondMilestone, "#34495E", null, subtasks);
+      var connection = paper.connection(firstMilestone, secondMilestone, "#34495E");
+
       connection.line.hover(function() {
-        subtasks.newPoint.pointer =
-            paper.circle(subtasks.newPoint.connectorx, subtasks.newPoint.connectory, 5).attr({fill: "#000", "stroke-width": 2});
+        connection.subtasks.newPoint.pointer =
+            paper.circle(connection.subtasks.newPoint.connectorx, connection.subtasks.newPoint.connectory, 5).attr({fill: "#000", "stroke-width": 2});
       }, function() {
-        subtasks.newPoint.pointer.remove();
+        connection.subtasks.newPoint.pointer.remove();
       }, connection, connection);
+
+      connection.line.click(function() {
+        connection.subtasks.tasks.push({});
+        paper.connection(connection);
+      });
 
       this.connections.push(connection);
     },
