@@ -99,12 +99,9 @@ exports.update = function (req, res, passport) {
         return res.json(err);
       } else {
         return res.json({
-          status: true,
-          user: {
-            id: req.user._id,
-            name: req.body.name,
-            email: req.user.email
-          }
+          id: req.user._id,
+          name: req.body.name,
+          email: req.user.email
         });
       }
     });
