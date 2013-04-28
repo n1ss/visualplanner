@@ -48,23 +48,30 @@ define([
           opacity: 0.5
         });
       }
+
+      $("text").each(function(el, index){
+        this.setAttribute("y" ,this.getBBox().y + 125);
+
+      })
     },
 
     addMilestone: function(options) {
       var mindmap = this;
       var paper = this.paper;
 
-      var milestone = new Milestone(_.extend({
+      var milestone = new Milestone({
         paper: paper,
         mindmap: mindmap,
-        uuid: this.generateUUID()
-      }, options)).render();
+        title: options.title
+      }).render(options);
 
-      this.milestones.push(milestone);
+      this.milestones.push(milestone.block);
 
-      if (this.milestones.length > 1) {
-        this.connections.push(paper.connection(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1], "#34495E"));
+      if (options.noConnect !== true && this.milestones.length > 1) {
+        this.addConnect(this.milestones[this.milestones.length - 2], this.milestones[this.milestones.length - 1]);
       }
+
+      return milestone;
     },
 
     /**
@@ -79,19 +86,13 @@ define([
     },
 
     addConnect: function(firstMilestone, secondMilestone) {
+      var connection = this.paper.connection(firstMilestone, secondMilestone, "#34495E");
 
+      this.connections.push(connection);
     },
 
     removeConnect: function(id) {
 
-    },
-
-    generateUUID: function(){
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-      }
-
-      return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
     }
   };
 

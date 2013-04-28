@@ -10,7 +10,7 @@ var PlanSchema = new Schema({
 // validations
 var validatePresenceOf = function (value) {
   return value && value.length;
-}
+};
 
 // the below 4 validations only apply if you are signing up traditionally
 
