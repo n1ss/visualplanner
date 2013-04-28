@@ -18,6 +18,9 @@ define([
     var paper = this.options.paper;
     var connections = this.options.mindmap.connections;
 
+    /**
+     * Start dragger
+     */
     this.dragger = function () {
       milestone.elems.forEach(function(elem) {
         elem.ox = elem.type == "ellipse" ? elem.attr("cx") : elem.attr("x");
@@ -27,7 +30,14 @@ define([
       this.animate({"fill-opacity": .6}, 500);
     };
 
+    /**
+     * On move event
+     */
     this.move = function (dx, dy, x, y, e) {
+      if (this.data('noMove')) {
+        return;
+      }
+
       milestone.elems.forEach(function(elem) {
         if (elem.type == "ellipse") {
           var att = {cx: elem.ox + dx, cy: elem.oy + dy};
@@ -45,9 +55,38 @@ define([
       paper.safari();
     };
 
+    /**
+     * On drug drop event
+     */
     this.up = function () {
       this.animate({"fill-opacity": 1}, 500);
-    }
+    };
+
+    /**
+     * Hover event
+     */
+    this.hover = function() {
+      milestone.addBlock.show().toFront();
+    };
+
+    /**
+     * On over event
+     */
+    this.over = function() {
+      milestone.addBlock.hide();
+    };
+
+    this.draggerAdd = function() {
+      console.log('start grag new');
+    };
+
+    this.moveAdd = function(dx, dy, x, y, e) {
+      console.log('move drag new');
+    };
+
+    this.upAdd = function() {
+      console.log('end drag new');
+    };
   };
 
   Milestone.prototype = {
@@ -58,32 +97,50 @@ define([
      */
     render: function() {
       var paper = this.options.paper;
+      var milestones = this.options.mindmap.milestones || [];
+      var x = 80, y = 5;
 
-      var block = paper.rect(0, 0, 230, 50, 5).attr({
-        "fill": "#53bb6f",
-        "fill-opacity": 1,
-        "stroke": "#449158",
-        "stroke-width": 2,
+      if (milestones.length >= 1) {
+        x = milestones[milestones.length - 1].getBBox().x;
+        y = milestones[milestones.length - 1].getBBox().y + 100;
+      }
+
+      var txtStyle = {
+        'text-anchor': 'start',
+        'fill': "#fff",
         "cursor": "move"
+      };
+
+      this.block = paper.rect(x, y, 230, 50, 5).attr({
+        "fill": "#53bb6f",
+        "stroke": "#449158",
+        "cursor": "move",
+        "fill-opacity": 1,
+        "stroke-width": 2
       });
-      console.log(this.options);
-      var title = paper.text(10, 15, this.options.title).attr({
-        'text-anchor': 'start',
-        'font': '13px Arial',
-        'fill': "#fff"
+      this.addBlock = paper.ellipse(x + 115, y + 50, 10, 10).attr({
+        "fill": "#ffffff",
+        "stroke": "#87989a",
+        "cursor": "move",
+        "stroke-width": 2
+      }).hide().data("noMove", true);
+      this.title = paper.text(x + 10, y + 15, this.options.title).attr(txtStyle).attr({
+        'font': '13px Arial'
       });
-      var secondTitle = paper.text(12, 37, "22 September 2008").attr({
-        'text-anchor': 'start',
-        'font': '10px Arial',
-        'fill': "#fff"
+      this.secondTitle = paper.text(x + 12, y + 37, "22 September 2008").attr(txtStyle).attr({
+        'font': '10px Arial'
       });
 
-      this.elems = [title, secondTitle, block];
+      this.elems = [this.title, this.secondTitle, this.block, this.addBlock];
 
-      label = paper.set.apply(this, this.elems);
-      label.drag(this.move, this.dragger, this.up);
+      this.label = paper.set.apply(this, this.elems);
+      
+      this.label.drag(this.move, this.dragger, this.up);
+      this.label.hover(this.hover, this.over);
 
-      return block;
+      this.addBlock.drag(this.moveAdd, this.draggerAdd, this.upAdd);
+
+      return this.block;
     }
 
   };
