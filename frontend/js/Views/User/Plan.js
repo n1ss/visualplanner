@@ -4,9 +4,11 @@ define([
   'underscore',
   'tmpl',
 
+  'Classes/Form',
+
   'Views/Base/View'
 
-], function(App, Backbone, _, tmpl) {
+], function(App, Backbone, _, tmpl, Form) {
   var Plan = App.Views.BaseView.extend({
 
     events: {
@@ -37,7 +39,12 @@ define([
     addMilestone: function(e) {
       e.preventDefault();
 
-      this.mindmap.addMilestone();
+      var form = new Form($(e.currentTarget));
+
+      if (form.checkValid()) {
+        this.mindmap.addMilestone();
+      }
+
     }
   });
 
