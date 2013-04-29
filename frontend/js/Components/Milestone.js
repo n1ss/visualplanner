@@ -89,7 +89,7 @@ define([
         title: 'test',
         noConnect: true,
         x: milestone.block.attr('x'),
-        y: milestone.block.attr('y') - 10 - e.pageY + e.screenY
+        y: milestone.block.attr('y') - window.pageYOffset
       });
 
       milestone.tempPoint = stone;
